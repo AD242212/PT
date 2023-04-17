@@ -78,5 +78,12 @@ namespace PT
                 throw new InvalidDataException("Incorrect user type");
             }
         }
+
+        public bool password_aviable()
+        {
+            return false;
+
+        }
+        
     }
 }
