@@ -50,11 +50,11 @@ namespace PT_Test
         [TestMethod]
         public void UserEventsTest()
         {
-            Assert.AreEqual(event_handler.view.get_next_id(),4);
+            Assert.AreEqual(event_handler.UserView.get_next_id(),4);
             Assert.IsTrue(event_handler.create_new_user("new_user", "password",1));
-            Assert.AreEqual(event_handler.view.get_next_id(),5);
+            Assert.AreEqual(event_handler.UserView.get_next_id(),5);
             
-            Assert.AreEqual(event_handler.view.getUserByName("new_user").get_name(),"new_user");
+            Assert.AreEqual(event_handler.UserView.getUserByName("new_user").get_name(),"new_user");
             
         }
         
