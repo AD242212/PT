@@ -8,9 +8,9 @@ namespace PT
 
         public userView()
         {
-            seller s1 = new seller(1, "1", "nie");
-            customer s2 = new customer(2, "2", "nie");
-            admin s3 = new admin(3, "3", "nie");
+            seller s1 = new seller(1, "seller1", "seller_password");
+            customer s2 = new customer(2, "customer1", "customer_password");
+            admin s3 = new admin(3, "admin1", "admin_password");
 
             userList.Add(s1);
             userList.Add(s2);
@@ -44,13 +44,15 @@ namespace PT
         }
 
 
-        // returns 0 if wrong credentials 
+        // returns 0 for wrong credentials 
+        // 1 for customer, 2 for seller and 3 for admin
         public int validate_user(string username, string password)
         {
             foreach (user usr in userList)
             {
                 if (usr.get_name() == username && usr.get_password() == password)
                 {
+                    return check_user_type(usr);
                 }
             }
 
