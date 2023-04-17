@@ -49,6 +49,7 @@ namespace PT_Test
             Assert.AreEqual(event_handler.ItemView.get_next_id(), 4);
             Assert.IsTrue(event_handler.create_new_item("Asus Rog", 1000f, 10, "Laptop"));
             Assert.AreEqual(event_handler.ItemView.get_next_id(), 5);
+            Assert.AreEqual(event_handler.ItemView.GetItem(4).GetName(),"Asus Rog");
         }
     }
 }
