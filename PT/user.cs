@@ -1,15 +1,11 @@
 namespace PT
 {
-    
-    abstract class user
+    abstract public class user
     {
         private int id;
         private string username;
         private string password;
 
-        public user()
-        {
-        }
 
         public user(int id, string username, string password)
         {
@@ -17,17 +13,41 @@ namespace PT
             this.username = username;
             this.password = password;
         }
+
+        public int get_id()
+        {
+            return this.id;
+        }
+
+        public string get_name()
+        {
+            return this.username;
+        }
+
+        public string get_password()
+        {
+            return this.password;
+        }
     }
 
-    class seller : user
+    public class seller : user
     {
+        public seller(int id, string username, string password) : base(id, username, password)
+        {
+        }
     }
 
-    class customer : user
+    public class customer : user
     {
+        public customer(int id, string username, string password) : base(id, username, password)
+        {
+        }
     }
 
-    class admin : user
+    public class admin : user
     {
+        public admin(int id, string username, string password) : base(id, username, password)
+        {
+        }
     }
 }
