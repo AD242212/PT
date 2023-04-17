@@ -13,7 +13,7 @@ public class State
         Phone p1 = new Phone(2, "Redmi1", 150.99f, 3);
         Phone p2 = new Phone(3, "Redmi2", 199.99f, 4);
 
-        next_id = 4; 
+        next_id = 3; 
     
     
         items.Add(l1.GetId(),l1);
@@ -25,13 +25,13 @@ public class State
 
     public int get_next_id()
     {
-        return next_id;
+        return next_id+1;
     }
 
     public void add_item(Item item)
     {
-        items[next_id] = item;
         next_id++;
+        items[next_id] = item;
     }
     
     

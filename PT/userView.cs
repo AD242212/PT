@@ -6,9 +6,12 @@ namespace PT
     {
         private List<user> userList = new List<user>();
 
+        private int next_id;
+
         public void add_user(user usr)
         {
             userList.Add(usr);
+            next_id++;
         }
 
         public userView()
@@ -17,9 +20,13 @@ namespace PT
             customer s2 = new customer(2, "customer1", "customer_password");
             admin s3 = new admin(3, "admin1", "admin_password");
 
+
             userList.Add(s1);
             userList.Add(s2);
             userList.Add(s3);
+            
+            next_id = userList.Last().get_id();
+
         }
 
         public int get_next_id()
