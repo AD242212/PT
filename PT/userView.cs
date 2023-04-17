@@ -6,15 +6,32 @@ namespace PT
     {
         private List<user> userList = new List<user>();
 
+        private int next_id;
+
+        public void add_user(user usr)
+        {
+            userList.Add(usr);
+            next_id++;
+        }
+
         public userView()
         {
             seller s1 = new seller(1, "seller1", "seller_password");
             customer s2 = new customer(2, "customer1", "customer_password");
             admin s3 = new admin(3, "admin1", "admin_password");
 
+
             userList.Add(s1);
             userList.Add(s2);
             userList.Add(s3);
+            
+            next_id = userList.Last().get_id();
+
+        }
+
+        public int get_next_id()
+        {
+            return userList.Last().get_id()+1;
         }
 
         public user getUserByID(int id)
@@ -79,10 +96,16 @@ namespace PT
             }
         }
 
-        public bool password_aviable()
+        public bool username_available(string username)
         {
-            return false;
+            foreach (user usr in userList)
+            {
+                if (usr.get_name() == username)
+                    return false;
+            }
 
+            return true;
+            
         }
         
     }
