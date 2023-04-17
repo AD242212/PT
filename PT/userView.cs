@@ -51,10 +51,7 @@ namespace PT
             {
                 if (usr.get_name() == username && usr.get_password() == password)
                 {
-                    
-                    
                 }
-                
             }
 
             return 0;
@@ -62,14 +59,22 @@ namespace PT
 
         public int check_user_type(user usr)
         {
-            if (usr.GetType() == typeof(seller))
+            if (usr.GetType() == typeof(customer))
             {
                 return 1;
             }
-
-            return 0;
+            else if (usr.GetType() == typeof(seller))
+            {
+                return 2;
+            }
+            else if (usr.GetType() == typeof(admin))
+            {
+                return 3;
+            }
+            else
+            {
+                throw new InvalidDataException("Incorrect user type");
+            }
         }
-        
-        
     }
 }
