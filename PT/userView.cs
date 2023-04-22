@@ -6,39 +6,32 @@ namespace PT
     {
         private List<user> userList = new List<user>();
 
-        private int next_id;
 
         public void add_user(user usr)
         {
             userList.Add(usr);
-            next_id++;
         }
 
         public userView()
         {
-            seller s1 = new seller(1, "seller1", "seller_password");
-            customer s2 = new customer(2, "customer1", "customer_password");
-            admin s3 = new admin(3, "admin1", "admin_password");
+            seller s1 = new seller( "seller1", "seller_password");
+            customer s2 = new customer( "customer1", "customer_password");
+            admin s3 = new admin( "admin1", "admin_password");
 
 
             userList.Add(s1);
             userList.Add(s2);
             userList.Add(s3);
             
-            next_id = userList.Last().get_id();
 
         }
+        
 
-        public int get_next_id()
-        {
-            return userList.Last().get_id()+1;
-        }
-
-        public user getUserByID(int id)
+        public user getUserByID(string id)
         {
             foreach (user usr in userList)
             {
-                if (usr.get_id() == id)
+                if (usr.id == id)
                 {
                     return usr;
                 }
@@ -51,7 +44,7 @@ namespace PT
         {
             foreach (user usr in userList)
             {
-                if (usr.get_name() == username)
+                if (usr.username == username)
                 {
                     return usr;
                 }
@@ -67,7 +60,7 @@ namespace PT
         {
             foreach (user usr in userList)
             {
-                if (usr.get_name() == username && usr.get_password() == password)
+                if (usr.username == username && usr.password == password)
                 {
                     return check_user_type(usr);
                 }
@@ -100,7 +93,7 @@ namespace PT
         {
             foreach (user usr in userList)
             {
-                if (usr.get_name() == username)
+                if (usr.username == username)
                     return false;
             }
 

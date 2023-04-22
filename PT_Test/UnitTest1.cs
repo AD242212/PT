@@ -13,13 +13,11 @@ namespace PT_Test
         [TestMethod]
         public void UserViewTests()
         {
-            Assert.AreEqual(view.getUserByID(1).get_id(), 1);
-            Assert.AreEqual(view.getUserByID(2).get_id(), 2);
-            Assert.AreEqual(view.getUserByID(10), null);
 
-            Assert.AreEqual(view.check_user_type(view.getUserByID(1)), 2);
-            Assert.AreEqual(view.check_user_type(view.getUserByID(2)), 1);
-            Assert.AreEqual(view.check_user_type(view.getUserByID(3)), 3);
+
+            Assert.AreEqual(view.check_user_type(view.getUserByName("seller1")), 2);
+            Assert.AreEqual(view.check_user_type(view.getUserByName("customer1")), 1);
+            Assert.AreEqual(view.check_user_type(view.getUserByName("admin1")), 3);
 
 
             Assert.AreEqual(view.validate_user("seller1", "seller_password"), 2); // seller
@@ -30,17 +28,14 @@ namespace PT_Test
             Assert.IsFalse(view.username_available("seller1"));
             Assert.IsTrue(view.username_available("doesnt_exist"));
 
-            Assert.AreEqual(view.get_next_id(), 4);
         }
 
         [TestMethod]
         public void TestAddingUser()
         {
-            Assert.AreEqual(event_handler.UserView.get_next_id(), 4);
             Assert.IsTrue(event_handler.create_new_user("new_user", "password", 1));
-            Assert.AreEqual(event_handler.UserView.get_next_id(), 5);
 
-            Assert.AreEqual(event_handler.UserView.getUserByName("new_user").get_name(), "new_user");
+            Assert.AreEqual(event_handler.UserView.getUserByName("new_user").username, "new_user");
         }
 
         [TestMethod]

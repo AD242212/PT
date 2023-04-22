@@ -8,20 +8,19 @@ public class events
     public bool create_new_user(string username, string password, int usrType)
     {
         user newusr;
-        int nextid = UserView.get_next_id();
 
         if (username.Length > 0 && username.Length < 15 && password.Length > 0 && password.Length < 25)
         {
             switch (usrType)
             {
                 case 1:
-                    newusr = new customer(nextid, username, password);
+                    newusr = new customer(username, password);
                     break;
                 case 2:
-                    newusr = new seller(nextid, username, password);
+                    newusr = new seller(username, password);
                     break;
                 case 3:
-                    newusr = new admin(nextid, username, password);
+                    newusr = new admin(username, password);
                     break;
                 default:
                     throw new InvalidDataException("Unknown user type");
@@ -50,17 +49,13 @@ public class events
                     item = new Phone(id, name, price, num_of_items);
                     break;
                 default:
-                    throw new InvalidDataException("Unknown user type");       
-                
+                    throw new InvalidDataException("Unknown user type");
             }
-            
+
             ItemView.add_item(item);
             return true;
         }
 
         return false;
-
-
     }
-    
 }

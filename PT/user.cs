@@ -20,7 +20,7 @@ namespace PT
 
     public class seller : user
     {
-        public seller(int id, string username, string password) : base(username, password)
+        public seller(string username, string password) : base(username, password)
         {
         }
     }
