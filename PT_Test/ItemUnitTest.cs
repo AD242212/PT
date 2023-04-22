@@ -27,5 +27,6 @@ namespace PT_Test
             Assert.AreEqual(150.99f, p1.price);
             Assert.AreEqual(45, p1.nums_in_stock);
         }
+        
     }
 }

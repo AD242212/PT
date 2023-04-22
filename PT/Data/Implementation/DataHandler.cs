@@ -70,6 +70,7 @@ public class DataHandler : IDataHandler
 
         return true;
     }
+
     //todo add test and implementation 
     public bool email_available(string mail)
     {
@@ -96,13 +97,8 @@ public class DataHandler : IDataHandler
 
     public IItem GetItem(int id)
     {
-        IItem? usr = _data.items.Find(x => x.id == id);
-        if (usr is not null)
-        {
-            return usr;
-        }
 
-        throw new Exception("Item with specified id doesn't exist");
+        return _data.items.Find(x => x.id == id);
     }
 
 

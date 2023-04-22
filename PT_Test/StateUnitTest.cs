@@ -26,6 +26,8 @@ namespace PT_Test
         public void GetItemTest()
         {
             Assert.IsTrue(test_handler.GetItem(0) != null);
+            Assert.IsNull(test_handler.GetItem(213));
+
         }
 
         [TestMethod]
