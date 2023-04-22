@@ -10,6 +10,7 @@ namespace PT
             this.username = username;
             this.password = password;
             this.balance = balance;
+            this.purchase_history = new List<string>();
         }
 
 
@@ -17,6 +18,7 @@ namespace PT
         public string username { get; set; }
         public string email { get; set; }
         public string id { get; set; }
+        public List<string> purchase_history { get; set; }
         public float balance { get; set; }
     }
 

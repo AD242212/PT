@@ -126,4 +126,9 @@ public class DataHandler : IDataHandler
     {
         return _data.items.OrderByDescending(x => x.nums_in_stock).First();
     }
+
+    public string GetSoldString(IItem item, int ammount)
+    {
+        return string.Format("item: {0}, price: {1}, amount: {2}", item.name, item.price, ammount);
+    }
 }

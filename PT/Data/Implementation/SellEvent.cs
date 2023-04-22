@@ -7,12 +7,14 @@ public class SellEvent : IEvent
     public IItem related_item { get; }
     public IDataHandler context { get; }
     public IUser user { get; }
+    public int sell_num { get; }
 
-    public SellEvent(IItem relatedItem, IDataHandler context, IUser user)
+    public SellEvent(IItem relatedItem, IDataHandler context, IUser user, int sell_num)
     {
         related_item = relatedItem;
         this.context = context;
         this.user = user;
+        this.sell_num = sell_num;
     }
 
     public bool Perform()
@@ -20,9 +22,11 @@ public class SellEvent : IEvent
         if (context.can_afford(user.id, related_item.price) && context.GetItem(related_item.id).nums_in_stock > 0)
         {
             // todo add user bought items, aswell as cart(?) 
-            context.GetItem(related_item.id).nums_in_stock -= 1;
+            context.GetItem(related_item.id).nums_in_stock -= sell_num;
             context.getUserByID(user.id).balance -= related_item.price;
-
+            
+            // creates entry in purchase history, which looks like "item: {item_name}, price: {price}, amount: {amount}"
+            context.getUserByID(user.id).purchase_history.Add(context.GetSoldString(related_item, sell_num));
             return true;
         }
 

@@ -28,4 +28,7 @@ public interface IDataHandler
     IItem GetMostExpensiveItem();
     IItem GetLeastAvailableItem();
     IItem GetMostAvailableItem();
+
+    String GetSoldString(IItem item, int ammount);
+
 }

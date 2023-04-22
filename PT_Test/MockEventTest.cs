@@ -23,18 +23,21 @@ public class MockEventTest
     }
 
     [TestMethod]
-    public void TestEvents()
+    public void SellEvent()
     {
-        SellEvent evt = new SellEvent(test_handler.GetItem(0), test_handler, test_handler.getUserByName("customer1"));
+        SellEvent evt = new SellEvent(test_handler.GetItem(0), test_handler, test_handler.getUserByName("customer1"),1);
         evt.Perform();
         Assert.AreEqual(test_handler.GetItem(0).nums_in_stock, 0);
         Assert.AreEqual(test_handler.getUserByName("customer1").balance, 10000 - test_handler.GetItem(0).price);
 
-        SellEvent evt2 = new SellEvent(test_handler.GetItem(0), test_handler, test_handler.getUserByName("customer1"));
+        SellEvent evt2 = new SellEvent(test_handler.GetItem(0), test_handler, test_handler.getUserByName("customer1"),1);
         Assert.IsFalse(evt2.Perform());
 
-        SellEvent evt3 = new SellEvent(test_handler.GetItem(2), test_handler, test_handler.getUserByName("customer2"));
+        SellEvent evt3 = new SellEvent(test_handler.GetItem(2), test_handler, test_handler.getUserByName("customer2"),1);
         Assert.IsFalse(evt3.Perform());
+        
+        Assert.AreEqual(test_handler.getUserByName("customer1").purchase_history.Last(),"item: ThinkPad1, price: 200,99, amount: 1");
+        
     }
 
     [TestMethod]
