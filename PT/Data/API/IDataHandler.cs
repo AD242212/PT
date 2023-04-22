@@ -9,10 +9,10 @@ public interface IDataHandler
 
 // // // // // // // USER METHODS // // // //// // // //
     void add_user(user usr);
-    user getUserByID(string id);
-    user getUserByName(string username);
+    IUser getUserByID(string id);
+    IUser getUserByName(string username);
     int validate_user(string username, string password);
-    int check_user_type(user usr);
+    int check_user_type(IUser usr);
     public bool username_available(string username);
     public bool email_available(string mail);
 

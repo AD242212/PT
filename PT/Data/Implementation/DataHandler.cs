@@ -9,18 +9,7 @@ public class DataHandler : IDataHandler
     public DataHandler()
     {
         _data = new DataHolder();
-        // seller s1 = new seller( "seller1", "seller_password");
-        // customer s2 = new customer( "customer1", "customer_password");
-        // admin s3 = new admin( "admin1", "admin_password");
-        //
-        //
-        // userList.Add(s1);
-        // userList.Add(s2);
-        // userList.Add(s3);
-        // Item  l1 = new Item(0, "ThinkPad1", 200.99f, 1);
-        // Item  l2 = new Item(1, "ThinkPad2", 250.99f, 2);
-        // Item p1 = new Item(2, "Redmi1", 150.99f, 3);
-        // Item p2 = new Item(3, "Redmi2", 199.99f, 4);
+
     }
 
 
@@ -29,48 +18,32 @@ public class DataHandler : IDataHandler
         _data.users.Add(usr);
     }
 
-    public user getUserByID(string id)
+    public IUser getUserByID(string id)
     {
-        foreach (user usr in _data.users)
-        {
-            if (usr.id == id)
-            {
-                return usr;
-            }
-        }
-
-        return null;
+        return _data.users.Find(x => x.id == id);
     }
 
-    public user getUserByName(string username)
+    public IUser getUserByName(string username)
     {
-        foreach (user usr in _data.users)
-        {
-            if (usr.username == username)
-            {
-                return usr;
-            }
-        }
 
-        return null;
+        return _data.users.Find(x => x.username == username);
     }
 
     // returns 0 for wrong credentials 
     // 1 for customer, 2 for seller and 3 for admin
     public int validate_user(string username, string password)
     {
-        foreach (user usr in _data.users)
+        IUser usr = _data.users.Find(x => x.username == username && x.password == password);
+
+        if (usr!=null)
         {
-            if (usr.username == username && usr.password == password)
-            {
-                return check_user_type(usr);
-            }
+            return check_user_type(usr);
         }
 
         return 0;
     }
 
-    public int check_user_type(user usr)
+    public int check_user_type(IUser usr)
     {
         if (usr.GetType() == typeof(customer))
         {
@@ -92,13 +65,13 @@ public class DataHandler : IDataHandler
 
     public bool username_available(string username)
     {
-        foreach (user usr in _data.users)
+        if (_data.users.Find(x => x.username == username) != null)
         {
-            if (usr.username == username)
-                return false;
+            return false;
         }
 
         return true;
+
     }
 
     public bool email_available(string mail)
