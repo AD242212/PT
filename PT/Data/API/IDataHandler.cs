@@ -16,6 +16,8 @@ public interface IDataHandler
     public bool username_available(string username);
     public bool email_available(string mail);
 
+    public bool can_afford(string user_id, float price);
+
 
 // // // // // // // ITEM METHODS // // // //// // // //
 

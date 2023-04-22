@@ -9,7 +9,6 @@ public class DataHandler : IDataHandler
     public DataHandler()
     {
         _data = new DataHolder();
-
     }
 
 
@@ -25,7 +24,6 @@ public class DataHandler : IDataHandler
 
     public IUser getUserByName(string username)
     {
-
         return _data.users.Find(x => x.username == username);
     }
 
@@ -35,7 +33,7 @@ public class DataHandler : IDataHandler
     {
         IUser usr = _data.users.Find(x => x.username == username && x.password == password);
 
-        if (usr!=null)
+        if (usr != null)
         {
             return check_user_type(usr);
         }
@@ -71,16 +69,21 @@ public class DataHandler : IDataHandler
         }
 
         return true;
-
     }
-
+    //todo add test and implementation 
     public bool email_available(string mail)
     {
         return false;
     }
 
-    // ITEM IMPLEMENTATIONS //
+    //todo add test  
+    public bool can_afford(string user_id, float cost)
+    {
+        return getUserByID(user_id).balance >= cost;
+    }
 
+    // ITEM IMPLEMENTATIONS //
+    //todo tests for all methods below
     public int get_next_item_id()
     {
         return _data.items.Last().id + 1;
@@ -102,6 +105,7 @@ public class DataHandler : IDataHandler
         throw new Exception("Item with specified id doesn't exist");
     }
 
+
     public int GetNumOfDistinctItemsInStock()
     {
         return _data.items.Count;
@@ -120,13 +124,10 @@ public class DataHandler : IDataHandler
     public IItem GetLeastAvailableItem()
     {
         return _data.items.OrderByDescending(x => x.nums_in_stock).Last();
-
-        
     }
+
     public IItem GetMostAvailableItem()
     {
         return _data.items.OrderByDescending(x => x.nums_in_stock).First();
-
-        
     }
 }

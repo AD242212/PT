@@ -6,4 +6,6 @@ public interface IUser
     string username { get; set; }
     string email { get; set; }
     public string id { get; set; }
+    
+    public float balance { get; set; }
 }
