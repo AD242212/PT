@@ -1,53 +1,37 @@
+using PT.Data.API;
+
 namespace PT
 {
-    abstract public class user
+    public class user : IUser
     {
-        private int id;
-        private string username;
-        private string password;
-
-
-        public user(int id, string username, string password)
+        public user(string username, string password)
         {
-            this.id = id;
+            id = System.Guid.NewGuid().ToString();
             this.username = username;
             this.password = password;
         }
 
-        public int get_id()
-        {
-            return this.id;
-        }
 
-        public string get_name()
-        {
-            return this.username;
-        }
-
-        public string get_password()
-        {
-            return this.password;
-        }
+        public string password { get; set; }
+        public string username { get; set; }
+        public string email { get; set; }
+        public string id { get; set; }
     }
 
     public class seller : user
     {
-        public seller(int id, string username, string password) : base(id, username, password)
+        public seller(int id, string username, string password) : base(username, password)
         {
         }
     }
 
     public class customer : user
     {
-        public customer(int id, string username, string password) : base(id, username, password)
-        {
-        }
+        public customer(string username, string password) : base(username, password) { }
     }
 
     public class admin : user
     {
-        public admin(int id, string username, string password) : base(id, username, password)
-        {
-        }
+        public admin(string username, string password) : base( username, password) { }
     }
 }
