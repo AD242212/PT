@@ -24,13 +24,13 @@ public class SellEvent : IEvent
             // todo add user bought items, aswell as cart(?) 
             context.GetItem(related_item.id).nums_in_stock -= sell_num;
             context.getUserByID(user.id).balance -= related_item.price;
-            
+
             // creates entry in purchase history, which looks like "item: {item_name}, price: {price}, amount: {amount}"
             context.getUserByID(user.id).purchase_history.Add(context.GetSoldString(related_item, sell_num));
             return true;
         }
 
-        return false;
+        throw new Exception("Attempting to buy item with insufficient funds - buisness-logic error");
     }
 }
 
