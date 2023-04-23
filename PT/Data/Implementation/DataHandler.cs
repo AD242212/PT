@@ -1,6 +1,6 @@
 using PT.Data.API;
 
-namespace PT;
+namespace PT.Data.Implementation;
 
 public class DataHandler : IDataHandler
 {
@@ -12,7 +12,7 @@ public class DataHandler : IDataHandler
     }
 
 
-    public void add_user(user usr)
+    public void add_user(User usr)
     {
         _data.users.Add(usr);
     }
@@ -28,7 +28,7 @@ public class DataHandler : IDataHandler
     }
 
     // returns 0 for wrong credentials 
-    // 1 for customer, 2 for seller and 3 for admin
+    // 1 for customer, 2 for admin
     public int validate_user(string username, string password)
     {
         IUser usr = _data.users.Find(x => x.username == username && x.password == password);
@@ -47,13 +47,9 @@ public class DataHandler : IDataHandler
         {
             return 1;
         }
-        else if (usr.GetType() == typeof(seller))
-        {
-            return 2;
-        }
         else if (usr.GetType() == typeof(admin))
         {
-            return 3;
+            return 2;
         }
         else
         {
@@ -77,6 +73,17 @@ public class DataHandler : IDataHandler
         return false;
     }
 
+    public bool add_funds(string id, float funds)
+    {
+        if (_data.users.Find(x => x.id == id) != null)
+        {
+            _data.users.Find(x => x.id == id).balance += funds;
+            return true;
+        }
+
+        return false;
+    }
+
     //todo add test  
     public bool can_afford(string user_id, float cost)
     {
@@ -95,12 +102,26 @@ public class DataHandler : IDataHandler
         _data.items.Add(item);
     }
 
+    public void remove_item(int id)
+    {
+        if (_data.items.Find(x => x.id == id).nums_in_stock > 0)
+        {
+            _data.items.Find(x => x.id == id).nums_in_stock--;
+        }
+    }
+
     public IItem GetItem(int id)
     {
 
         return _data.items.Find(x => x.id == id);
     }
 
+    public void edit_item(int id, string name, float price, int num)
+    {
+        _data.items.Find(x => x.id == id).name = name;
+        _data.items.Find(x => x.id == id).price = price;
+        _data.items.Find(x => x.id == id).nums_in_stock = num;
+    }
 
     public int GetNumOfDistinctItemsInStock()
     {

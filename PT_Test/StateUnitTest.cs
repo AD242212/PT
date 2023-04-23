@@ -1,4 +1,5 @@
 ﻿using PT;
+using PT.Data.Implementation;
 
 namespace PT_Test
 {
@@ -12,7 +13,7 @@ namespace PT_Test
         [TestInitialize]
         public void Setup()
         {
-            test_handler.add_user(new seller("seller1", "seller_password",0));
+            test_handler.add_user(new admin("seller1", "seller_password",0));
             test_handler.add_user(new customer("customer1", "customer_password",0));
             test_handler.add_user(new admin("admin1", "admin_password",0));
 
