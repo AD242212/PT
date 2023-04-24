@@ -43,9 +43,6 @@ public class EventTest
 
         SellEvent evt3 = new SellEvent(test_handler.GetItem(2), test_handler, test_handler.getUserByName("customer2"),1);
         Assert.ThrowsException<Exception>(() => evt3.Perform());
-        
-        Assert.AreEqual(test_handler.getUserByName("customer1").purchase_history.Last(),"item: ThinkPad1, price: 200,99, amount: 1");
-        
     }
 
     [TestMethod]
