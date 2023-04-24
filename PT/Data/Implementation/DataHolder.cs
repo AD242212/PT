@@ -1,6 +1,6 @@
 using PT.Data.API;
 
-namespace PT;
+namespace PT.Data.Implementation;
 
 public class DataHolder: IDataHolder
 {
