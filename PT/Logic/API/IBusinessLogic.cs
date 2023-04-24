@@ -12,13 +12,13 @@ public interface IBusinessLogic
     }
 
     void AddFunds(float funds);
-    
-    void Buy(int id);
-    
-    void Supply(int id, string name, float price, int num);
-    
+
+    void Buy(int id, int supply_num);
+
+    void Supply(int id, string name, float price, int num, int supply_num);
+
     void RemoveProduct(int id);
-    
+
     void EditProduct(int id, string name, float price, int num);
 
     bool Login(string username, string password);
