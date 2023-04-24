@@ -102,25 +102,34 @@ public class DataHandler : IDataHandler
         _data.items.Add(item);
     }
 
-    public void remove_item(int id)
+    public void remove_item(string user_id, int id)
     {
-        if (_data.items.Find(x => x.id == id).nums_in_stock > 0)
+        if (check_user_type(getUserByID(user_id)) == 2)
         {
-            _data.items.Find(x => x.id == id).nums_in_stock--;
+            _data.items.Remove(_data.items.Find(x => x.id == id));
+            return;
         }
+
+        throw new Exception("Can not remove the item!");
     }
 
     public IItem GetItem(int id)
     {
-
         return _data.items.Find(x => x.id == id);
     }
 
-    public void edit_item(int id, string name, float price, int num)
+    public void edit_item(string user_id, int id, string name, float price, int num)
     {
-        _data.items.Find(x => x.id == id).name = name;
-        _data.items.Find(x => x.id == id).price = price;
-        _data.items.Find(x => x.id == id).nums_in_stock = num;
+        if (check_user_type(getUserByID(user_id)) == 2)
+        {
+            _data.items.Find(x => x.id == id).name = name;
+            _data.items.Find(x => x.id == id).price = price;
+            _data.items.Find(x => x.id == id).nums_in_stock = num;
+            
+            return;
+        }
+        
+        throw new Exception("Can not edit the item!");
     }
 
     public int GetNumOfDistinctItemsInStock()

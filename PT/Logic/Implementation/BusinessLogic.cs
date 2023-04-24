@@ -1,5 +1,4 @@
-﻿using System.Diagnostics.Tracing;
-using PT.Logic.API;
+﻿using PT.Logic.API;
 using PT.Data.API;
 using PT.Data.Implementation;
 
@@ -16,17 +15,21 @@ public class BusinessLogic : IBusinessLogic
         this.dataHandler = dataHandler;
     }
 
-    public void AddFunds(float funds)
+    public bool AddFunds(float funds)
     {
         if (!loggedIn)
-            return;
-        dataHandler.add_funds(currentUser.id, funds);
+            throw new Exception("Not logged in!");
+        
+        AddFundsEvent evt = new AddFundsEvent(dataHandler, currentUser, funds);
+        evt.Perform();
+
+        return true;
     }
 
-    public void Buy(int id, int num_to_buy)
+    public bool Sell(int id, int num_to_buy)
     {
         if (!loggedIn)
-            return;
+            throw new Exception("Not logged in!");
 
         if (dataHandler.check_user_type(currentUser) == 1
             && dataHandler.GetItem(id).nums_in_stock >= num_to_buy
@@ -35,40 +38,52 @@ public class BusinessLogic : IBusinessLogic
             SellEvent evt = new SellEvent(dataHandler.GetItem(id), dataHandler, currentUser, num_to_buy);
             evt.Perform();
         }
+        else
+        {
+            throw new Exception("Insufficient balance or not enough items in stock!");
+        }
+        
+        return true;
     }
 
-    public void Supply(int id, string name, float price, int num, int supply_num)
+    public bool Supply(int id, int supply_num)
     {
         if (!loggedIn)
-            return;
+            throw new Exception("Not logged in!");
 
         if (dataHandler.check_user_type(currentUser) == 2)
         {
-            SupplyEvent evt = new SupplyEvent(new Item(id, name, price, num), dataHandler, currentUser, supply_num);
+            SupplyEvent evt = new SupplyEvent(dataHandler.GetItem(id), dataHandler, currentUser, supply_num);
             evt.Perform();
         }
+        else
+        {
+            throw new Exception("Not admin!");
+        }
+
+        return true;
     }
 
-    public void RemoveProduct(int id)
+    public bool RemoveProduct(int id)
     {
         if (!loggedIn)
-            return;
+            throw new Exception("Not logged in!");
 
-        if (dataHandler.check_user_type(currentUser) == 2)
-        {
-            dataHandler.remove_item(id);
-        }
+        RemoveProductEvent evt = new RemoveProductEvent(id, dataHandler, currentUser);
+        evt.Perform();
+        
+        return true;
     }
 
-    public void EditProduct(int id, string name, float price, int num)
+    public bool EditProduct(int id, string name, float price, int num)
     {
         if (!loggedIn)
-            return;
-
-        if (dataHandler.check_user_type(currentUser) == 2)
-        {
-            dataHandler.edit_item(id, name, price, num);
-        }
+            throw new Exception("Not logged in!");
+        
+        EditProductEvent evt = new EditProductEvent(id, dataHandler, currentUser, name, price, num);
+        evt.Perform();
+        
+        return true;
     }
 
     //returns true if successful
@@ -109,9 +124,11 @@ public class BusinessLogic : IBusinessLogic
         return false;
     }
 
-    public void LogOut()
+    public bool LogOut()
     {
         loggedIn = false;
         dataHandler.getUserByID(currentUser.id).balance = currentUser.balance;
+
+        return true;
     }
 }

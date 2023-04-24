@@ -11,19 +11,19 @@ public interface IBusinessLogic
         return new BusinessLogic(dataHandler);
     }
 
-    void AddFunds(float funds);
+    bool AddFunds(float funds);
 
-    void Buy(int id, int supply_num);
+    bool Sell(int id, int supply_num);
 
-    void Supply(int id, string name, float price, int num, int supply_num);
+    bool Supply(int id, int supply_num);
 
-    void RemoveProduct(int id);
+    bool RemoveProduct(int id);
 
-    void EditProduct(int id, string name, float price, int num);
+    bool EditProduct(int id, string name, float price, int num);
 
     bool Login(string username, string password);
 
     bool Register(string username, string password, int type);
 
-    void LogOut();
+    bool LogOut();
 }

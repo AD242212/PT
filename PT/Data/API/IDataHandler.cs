@@ -24,9 +24,9 @@ public interface IDataHandler
 // // // // // // // ITEM METHODS // // // //// // // //
 
     void add_item(IItem item);
-    void remove_item(int id);
+    void remove_item(string user_id, int id);
     IItem GetItem(int id);
-    void edit_item(int id, string name, float price, int num);
+    void edit_item(string user_id, int id, string name, float price, int num);
     int GetNumOfDistinctItemsInStock();
     IItem GetCheapestItem();
     IItem GetMostExpensiveItem();
