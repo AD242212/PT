@@ -10,11 +10,18 @@ public class DataHandler : IDataHandler
     {
         _data = new DataHolder();
     }
-
-
-    public void add_user(User usr)
+    
+    //USER METHODS
+    public void add_user(int type, string username, string password, int balance)
     {
-        _data.users.Add(usr);
+        if (type == 1)
+        {
+            _data.users.Add(new customer(username, password, balance));
+        }
+        else if(type == 2)
+        {
+            _data.users.Add(new admin(username, password, balance));
+        }
     }
 
     public IUser getUserByID(string id)
@@ -83,15 +90,13 @@ public class DataHandler : IDataHandler
 
         return false;
     }
-
-    //todo add test  
+    
     public bool can_afford(string user_id, float cost)
     {
         return getUserByID(user_id).balance >= cost;
     }
 
-    // ITEM IMPLEMENTATIONS //
-    //todo tests for all methods below
+    //ITEM METHODS
     public int get_next_item_id()
     {
         return _data.items.Last().id + 1;
@@ -160,5 +165,42 @@ public class DataHandler : IDataHandler
     public string GetSoldString(IItem item, int ammount)
     {
         return string.Format("item: {0}, price: {1}, amount: {2}", item.name, item.price, ammount);
+    }
+
+    //EVENT METHODS
+    
+    public void NewAddFundsEvent(IUser user, float amount)
+    {
+        AddFundsEvent evt = new AddFundsEvent(user, amount);
+        evt.Perform(this);
+        _data.events.Add(evt);
+    }
+
+    public void NewSellEvent(IItem relatedItem, IUser user, int sell_num)
+    {
+        SellEvent evt = new SellEvent(relatedItem, user, sell_num);
+        evt.Perform(this);
+        _data.events.Add(evt);
+    }
+
+    public void NewSupplyEvent(IItem relatedItem, IUser user, int supply_num)
+    {
+        SupplyEvent evt = new SupplyEvent(relatedItem, user, supply_num);
+        evt.Perform(this);
+        _data.events.Add(evt);
+    }
+
+    public void NewRemoveProductEvent(int id, IUser user)
+    {
+        RemoveProductEvent evt = new RemoveProductEvent(id, user);
+        evt.Perform(this);
+        _data.events.Add(evt);
+    }
+
+    public void NewEditProductEvent(int id, IUser user, string name, float price, int num)
+    {
+        EditProductEvent evt = new EditProductEvent(id, user, name, price, num);
+        evt.Perform(this);
+        _data.events.Add(evt);
     }
 }

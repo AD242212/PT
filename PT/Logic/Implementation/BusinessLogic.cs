@@ -1,6 +1,5 @@
 ﻿using PT.Logic.API;
 using PT.Data.API;
-using PT.Data.Implementation;
 
 namespace PT.Logic.Implementation;
 
@@ -20,8 +19,7 @@ public class BusinessLogic : IBusinessLogic
         if (!loggedIn)
             throw new Exception("Not logged in!");
         
-        AddFundsEvent evt = new AddFundsEvent(dataHandler, currentUser, funds);
-        evt.Perform();
+        dataHandler.NewAddFundsEvent(currentUser, funds);
 
         return true;
     }
@@ -35,8 +33,7 @@ public class BusinessLogic : IBusinessLogic
             && dataHandler.GetItem(id).nums_in_stock >= num_to_buy
             && dataHandler.getUserByID(currentUser.id).balance >= dataHandler.GetItem(id).price * num_to_buy)
         {
-            SellEvent evt = new SellEvent(dataHandler.GetItem(id), dataHandler, currentUser, num_to_buy);
-            evt.Perform();
+            dataHandler.NewSellEvent(dataHandler.GetItem(id), currentUser, num_to_buy);
         }
         else
         {
@@ -53,8 +50,7 @@ public class BusinessLogic : IBusinessLogic
 
         if (dataHandler.check_user_type(currentUser) == 2)
         {
-            SupplyEvent evt = new SupplyEvent(dataHandler.GetItem(id), dataHandler, currentUser, supply_num);
-            evt.Perform();
+            dataHandler.NewSupplyEvent(dataHandler.GetItem(id), currentUser, supply_num);
         }
         else
         {
@@ -69,8 +65,7 @@ public class BusinessLogic : IBusinessLogic
         if (!loggedIn)
             throw new Exception("Not logged in!");
 
-        RemoveProductEvent evt = new RemoveProductEvent(id, dataHandler, currentUser);
-        evt.Perform();
+        dataHandler.NewRemoveProductEvent(id, currentUser);
         
         return true;
     }
@@ -80,8 +75,7 @@ public class BusinessLogic : IBusinessLogic
         if (!loggedIn)
             throw new Exception("Not logged in!");
         
-        EditProductEvent evt = new EditProductEvent(id, dataHandler, currentUser, name, price, num);
-        evt.Perform();
+        dataHandler.NewEditProductEvent(id, currentUser, name, price, num);
         
         return true;
     }
@@ -111,10 +105,10 @@ public class BusinessLogic : IBusinessLogic
             switch (type)
             {
                 case 1:
-                    dataHandler.add_user(new customer(username, password, 0));
+                    dataHandler.add_user(0, username, password, 0);
                     break;
                 case 2:
-                    dataHandler.add_user(new admin(username, password, 0));
+                    dataHandler.add_user(0, username, password, 0);
                     break;
             }
 

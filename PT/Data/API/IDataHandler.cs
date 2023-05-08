@@ -10,7 +10,7 @@ public interface IDataHandler
     }
 
 // // // // // // // USER METHODS // // // //// // // //
-    void add_user(User usr);
+    void add_user(int type, string username, string password, int balance);
     IUser getUserByID(string id);
     IUser getUserByName(string username);
     int validate_user(string username, string password);
@@ -34,5 +34,13 @@ public interface IDataHandler
     IItem GetMostAvailableItem();
 
     String GetSoldString(IItem item, int ammount);
+    
+// // // // // // // EVENTS // // // //// // // //
+
+    void NewAddFundsEvent(IUser user, float amount);
+    void NewSellEvent(IItem relatedItem, IUser user, int sell_num);
+    void NewSupplyEvent(IItem relatedItem, IUser user, int supply_num);
+    void NewRemoveProductEvent(int id, IUser user);
+    void NewEditProductEvent(int id, IUser user, string name, float price, int num);
 
 }

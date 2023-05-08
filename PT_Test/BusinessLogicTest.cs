@@ -14,10 +14,10 @@ public class BusinessLogicTest
     [TestInitialize]
     public void Setup()
     {
-        test_handler.add_user(new admin("seller1", "seller_password", 0));
-        test_handler.add_user(new customer("customer1", "customer_password", 10000));
-        test_handler.add_user(new admin("admin1", "admin_password", 0));
-        test_handler.add_user(new customer("customer2", "customer_password2", 10));
+        test_handler.add_user(2, "seller1", "seller_password", 0);
+        test_handler.add_user(1, "customer1", "customer_password", 10000);
+        test_handler.add_user(2, "admin1", "admin_password", 0);
+        test_handler.add_user(1, "customer2", "customer_password2", 10);
 
         test_handler.add_item(new Item(0, "ThinkPad1", 200.99f, 1));
         test_handler.add_item(new Item(1, "ThinkPad2", 250.99f, 2));

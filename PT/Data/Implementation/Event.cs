@@ -4,18 +4,16 @@ namespace PT.Data.Implementation;
 
 public class AddFundsEvent : IEvent
 {
-    public IDataHandler context { get; }
     public IUser user { get; }
     public float amount { get; }
 
-    public AddFundsEvent(IDataHandler context, IUser user, float amount)
+    public AddFundsEvent(IUser user, float amount)
     {
-        this.context = context;
         this.user = user;
         this.amount = amount;
     }
 
-    public bool Perform()
+    public bool Perform(IDataHandler context)
     {
         try
         {
@@ -33,19 +31,17 @@ public class AddFundsEvent : IEvent
 public class SellEvent : IEvent
 {
     public IItem related_item { get; }
-    public IDataHandler context { get; }
     public IUser user { get; }
     public int sell_num { get; }
 
-    public SellEvent(IItem relatedItem, IDataHandler context, IUser user, int sell_num)
+    public SellEvent(IItem relatedItem, IUser user, int sell_num)
     {
         related_item = relatedItem;
-        this.context = context;
         this.user = user;
         this.sell_num = sell_num;
     }
 
-    public bool Perform()
+    public bool Perform(IDataHandler context)
     {
         if (context.can_afford(user.id, related_item.price * sell_num) && context.GetItem(related_item.id).nums_in_stock >= sell_num && sell_num > 0)
         {
@@ -64,19 +60,17 @@ public class SellEvent : IEvent
 public class SupplyEvent : IEvent
 {
     public IItem related_item { get; }
-    public IDataHandler context { get; }
     public IUser user { get; }
     public int supply_num { get; }
 
-    public SupplyEvent(IItem relatedItem, IDataHandler context, IUser user, int supply_num)
+    public SupplyEvent(IItem relatedItem, IUser user, int supply_num)
     {
         related_item = relatedItem;
-        this.context = context;
         this.user = user;
         this.supply_num = supply_num;
     }
 
-    public bool Perform()
+    public bool Perform(IDataHandler context)
     {
         if (context.GetItem(related_item.id) != null)
         {
@@ -100,17 +94,15 @@ public class SupplyEvent : IEvent
 public class RemoveProductEvent : IEvent
 {
     public int id { get; }
-    public IDataHandler context { get; }
     public IUser user { get; }
 
-    public RemoveProductEvent(int id, IDataHandler context, IUser user)
+    public RemoveProductEvent(int id, IUser user)
     {
         id = id;
-        this.context = context;
         this.user = user;
     }
 
-    public bool Perform()
+    public bool Perform(IDataHandler context)
     {
         if (context.GetItem(id) == null)
         {
@@ -132,7 +124,6 @@ public class RemoveProductEvent : IEvent
 public class EditProductEvent : IEvent
 {
     public int id { get; }
-    public IDataHandler context { get; }
     public IUser user { get; }
 
     public string name { get; }
@@ -141,17 +132,16 @@ public class EditProductEvent : IEvent
     
     public int num { get; }
     
-    public EditProductEvent(int id, IDataHandler context, IUser user, string name, float price, int num)
+    public EditProductEvent(int id, IUser user, string name, float price, int num)
     {
         this.id = id;
-        this.context = context;
         this.user = user;
         this.name = name;
         this.price = price;
         this.num = num;
     }
 
-    public bool Perform()
+    public bool Perform(IDataHandler context)
     {
         try
         {
