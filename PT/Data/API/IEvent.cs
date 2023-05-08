@@ -2,9 +2,7 @@
 
 public interface IEvent
 {
-    IDataHandler context { get; }
-
     IUser user { get; }
     
-    bool Perform();
+    bool Perform(IDataHandler context);
 }
