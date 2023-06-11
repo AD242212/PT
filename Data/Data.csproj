@@ -15,7 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Database\" />
+    <Compile Update="Database\DataClasses1.designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Database\DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
