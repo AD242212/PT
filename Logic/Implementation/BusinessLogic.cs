@@ -1,7 +1,7 @@
-﻿using PT.Logic.API;
-using PT.Data.API;
+﻿using Logic.API;
+using Data.API;
 
-namespace PT.Logic.Implementation;
+namespace Logic.Implementation;
 
 public class BusinessLogic : IBusinessLogic
 {

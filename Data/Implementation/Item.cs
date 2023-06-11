@@ -1,6 +1,6 @@
-﻿using PT.Data.API;
+﻿using Data.API;
 
-namespace PT.Data.Implementation;
+namespace Data.Implementation;
 
 public class Item : IItem
 {

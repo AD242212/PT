@@ -1,5 +1,4 @@
-﻿using PT;
-using PT.Data.Implementation;
+﻿using Data.Implementation;
 
 namespace PT_Test
 {

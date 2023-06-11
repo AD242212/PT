@@ -1,7 +1,7 @@
-﻿using PT;
-using PT.Data.Implementation;
-using PT.Logic.API;
-using PT.Logic.Implementation;
+﻿using Data.Implementation;
+using Logic.API;
+using Logic.Implementation;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PT_Test;
 

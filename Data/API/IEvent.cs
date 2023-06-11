@@ -1,4 +1,6 @@
-﻿namespace PT.Data.API;
+﻿using Data.API;
+
+namespace Data.API;
 
 public interface IEvent
 {

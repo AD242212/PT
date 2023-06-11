@@ -1,7 +1,7 @@
-﻿using PT.Data.API;
-using PT.Logic.Implementation;
+﻿using Data.API;
+using Logic.Implementation;
 
-namespace PT.Logic.API;
+namespace Logic.API;
 
 public interface IBusinessLogic
 {

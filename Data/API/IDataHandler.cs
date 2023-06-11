@@ -1,6 +1,7 @@
-using PT.Data.Implementation;
 
-namespace PT.Data.API;
+using Data.Implementation;
+
+namespace Data.API;
 
 public interface IDataHandler
 {

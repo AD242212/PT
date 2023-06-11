@@ -1,6 +1,5 @@
-﻿using PT;
-using PT.Data.API;
-using PT.Data.Implementation;
+﻿using Data.API;
+using Data.Implementation;
 
 namespace PT_Test
 {
