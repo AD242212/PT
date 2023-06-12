@@ -1,33 +1,32 @@
 
+using Data.Database;
 using Data.Implementation;
 
 namespace Data.API;
 
 public interface IDataHandler
 {
-    static IDataHolder create_storage(IDataHolder data)
-    {
-        return new DataHolder();
-    }
+
+    
 
 // // // // // // // USER METHODS // // // //// // // //
-    void add_user(int type, string username, string password, int balance);
-    IUser getUserByID(string id);
+    void add_user(int id, bool type, string username, string password, int balance);
+    IUser getUserByID(int id);
     IUser getUserByName(string username);
     int validate_user(string username, string password);
     int check_user_type(IUser usr);
     public bool username_available(string username);
     public bool email_available(string mail);
-    public bool add_funds(string id, float funds);
-    public bool can_afford(string user_id, float price);
+    public bool add_funds(int id, float funds);
+    public bool can_afford(int id, float price);
 
 
 // // // // // // // ITEM METHODS // // // //// // // //
 
     void add_item(IItem item);
-    void remove_item(string user_id, int id);
+    void remove_item(int user_id, int id);
     IItem GetItem(int id);
-    void edit_item(string user_id, int id, string name, float price, int num);
+    void edit_item(int user_id, int id, string name, float price, int num);
     int GetNumOfDistinctItemsInStock();
     IItem GetCheapestItem();
     IItem GetMostExpensiveItem();

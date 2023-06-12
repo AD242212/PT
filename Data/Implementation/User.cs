@@ -6,7 +6,8 @@ public class User : IUser
 {
     public User(string username, string password, float balance)
     {
-        id = System.Guid.NewGuid().ToString();
+        Random rnd = new Random();
+        id = rnd.Next();
         this.username = username;
         this.password = password;
         this.balance = balance;
@@ -17,7 +18,7 @@ public class User : IUser
     public string password { get; set; }
     public string username { get; set; }
     public string email { get; set; }
-    public string id { get; set; }
+    public int id { get; set; }
     public List<string> purchase_history { get; set; }
     public float balance { get; set; }
 }

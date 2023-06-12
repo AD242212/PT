@@ -105,10 +105,10 @@ public class BusinessLogic : IBusinessLogic
             switch (type)
             {
                 case 1:
-                    dataHandler.add_user(0, username, password, 0);
+                    dataHandler.add_user(1,false, username, password, 0);
                     break;
                 case 2:
-                    dataHandler.add_user(0, username, password, 0);
+                    dataHandler.add_user(2,true, username, password, 0);
                     break;
             }
 

@@ -7,5 +7,4 @@ public interface IItem
     float price { get; set; }
     int nums_in_stock { get; set; }
 
-    Dictionary<string, string> additonal_properties { get; }
 }

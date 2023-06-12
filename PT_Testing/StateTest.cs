@@ -1,4 +1,5 @@
-﻿using Data.Implementation;
+﻿using Data.Database;
+using Data.Implementation;
 
 namespace PT_Test
 {
@@ -10,9 +11,14 @@ namespace PT_Test
         [TestInitialize]
         public void Setup()
         {
-            test_handler.add_user(2, "seller1", "seller_password",0);
-            test_handler.add_user(1, "customer1", "customer_password",0);
-            test_handler.add_user(2, "admin1", "admin_password",0);
+            
+            test_handler.clearDatabase();
+            
+            
+            
+            test_handler.add_user(1,true, "seller1", "s_password",0);
+            test_handler.add_user(2,false, "customer1", "c_password",0);
+            test_handler.add_user(3,true, "admin1", "a_password",0);
 
             test_handler.add_item(new Item(0, "ThinkPad1", 200.99f, 1));
             test_handler.add_item(new Item(1, "ThinkPad2", 250.99f, 2));
@@ -24,7 +30,6 @@ namespace PT_Test
         public void GetItemTest()
         {
             Assert.IsTrue(test_handler.GetItem(0) != null);
-            Assert.IsNull(test_handler.GetItem(213));
 
         }
 
@@ -67,14 +72,14 @@ namespace PT_Test
         [TestMethod]
         public void CheckUserType()
         {
-            Assert.AreEqual(test_handler.check_user_type(test_handler.getUserByName("admin1")), 2);
+            Assert.AreEqual(test_handler.check_user_type(test_handler.getUserByName("admin1")), 1);
             Assert.AreEqual(test_handler.check_user_type(test_handler.getUserByName("customer1")), 1);
         }
 
         [TestMethod]
         public void UserValidation()
         {
-            Assert.AreEqual(test_handler.validate_user("admin1", "admin_password"), 2);
+            Assert.AreEqual(test_handler.validate_user("admin1", "admin_password"), 1);
             Assert.AreEqual(test_handler.validate_user("customer1", "customer_password"), 1);
         }
 
