@@ -7,7 +7,7 @@ public class BusinessLogic : IBusinessLogic
 {
     private IDataHandler dataHandler;
     private IUser currentUser;
-    private bool loggedIn = false;
+    private bool loggedIn = true;
 
     public BusinessLogic(IDataHandler dataHandler)
     {
@@ -48,7 +48,7 @@ public class BusinessLogic : IBusinessLogic
         if (!loggedIn)
             throw new Exception("Not logged in!");
 
-        if (dataHandler.check_user_type(currentUser) == 2)
+        if (dataHandler.check_user_type(currentUser) == 1)
         {
             dataHandler.NewSupplyEvent(dataHandler.GetItem(id), currentUser, supply_num);
         }

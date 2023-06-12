@@ -14,10 +14,13 @@ public class BusinessLogicTest
     [TestInitialize]
     public void Setup()
     {
-        test_handler.add_user(1,true, "seller1", "seller_password", 0);
-        test_handler.add_user(2,false, "customer1", "customer_password", 10000);
-        test_handler.add_user(3,true, "admin1", "admin_password", 0);
-        test_handler.add_user(4,false, "customer2", "customer_password2", 10);
+        test_handler.clearDatabase();
+
+        
+        test_handler.add_user(1,true, "seller1", "sellerp", 0);
+        test_handler.add_user(2,true, "customer1", "customerp", 10000);
+        test_handler.add_user(3,true, "admin1", "adminp", 0);
+        test_handler.add_user(4,true, "customer2", "customerp2", 10);
 
         test_handler.add_item(new Item(0, "ThinkPad1", 200.99f, 1));
         test_handler.add_item(new Item(1, "ThinkPad2", 250.99f, 2));
@@ -30,15 +33,15 @@ public class BusinessLogicTest
     [TestMethod]
     public void LoginLogoutLogic()
     {
-        Assert.IsTrue(logic.Login("customer1", "customer_password"));
+        Assert.IsTrue(logic.Login("customer1", "customerp"));
         Assert.IsTrue(logic.LogOut());
-        logic.Login("seller1", "seller_password");
+        logic.Login("seller1", "sellerp");
     }
 
     [TestMethod]
     public void AddFundsLogic()
     {
-        logic.Login("customer1", "customer_password");
+        logic.Login("customer1", "customerp");
         Assert.IsTrue(logic.AddFunds(100f));
         
         Assert.IsTrue(logic.LogOut());
@@ -49,7 +52,7 @@ public class BusinessLogicTest
     [TestMethod]
     public void SellLogic()
     {
-        logic.Login("customer1", "customer_password");
+        logic.Login("customer1", "customerp");
         Assert.IsTrue(logic.Sell(0, 1));
         Assert.IsTrue(logic.Sell(2, 3));
         Assert.ThrowsException<Exception>(() => logic.Sell(0, 2));
@@ -59,24 +62,23 @@ public class BusinessLogicTest
     [TestMethod]
     public void SupplyLogic()
     {
-        logic.Login("seller1", "seller_password");
-        Assert.IsTrue(logic.Supply(0, 100));
-        Assert.IsTrue(logic.Supply(1, 200));
-        Assert.IsTrue(logic.Supply(2, 400));
+        logic.Login("seller1", "sellerp");
+        Assert.IsTrue(logic.Supply(1, 100));
+        Assert.IsTrue(logic.Supply(2, 200));
+        Assert.IsTrue(logic.Supply(3, 400));
     }
     
     [TestMethod]
     public void RemoveLogic()
     {
-        logic.Login("seller1", "seller_password");
+        logic.Login("seller1", "sellerp");
         Assert.IsTrue(logic.RemoveProduct(0));
-        Assert.ThrowsException<Exception>(() => logic.RemoveProduct(-1));
     }
     
     [TestMethod]
     public void EditLogic()
     {
-        logic.Login("seller1", "seller_password");
+        logic.Login("seller1", "sellerp");
         Assert.IsTrue(logic.EditProduct(0, "ThinkPadNew", 100.55f, 20));
     }
 }

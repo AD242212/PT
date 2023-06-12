@@ -1,13 +1,14 @@
+using System.Runtime.InteropServices.ComTypes;
 using Data.API;
 
 namespace Data.Implementation;
 
 public class User : IUser
 {
-    public User(string username, string password, float balance)
+    public User(int id, string username, string password, float balance)
     {
         Random rnd = new Random();
-        id = rnd.Next();
+        this.id = id;
         this.username = username;
         this.password = password;
         this.balance = balance;
@@ -23,16 +24,16 @@ public class User : IUser
     public float balance { get; set; }
 }
 
-public class customer : User
-{
-    public customer(string username, string password, float balance) : base(username, password, balance)
-    {
-    }
-}
-
-public class admin : User
-{
-    public admin(string username, string password, float balance) : base(username, password, balance)
-    {
-    }
-}
+// public class customer : User
+// {
+//     public customer(string username, string password, float balance) : base(username, password, balance)
+//     {
+//     }
+// }
+//
+// public class admin : User
+// {
+//     public admin(string username, string password, float balance) : base(username, password, balance)
+//     {
+//     }
+// }

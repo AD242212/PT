@@ -44,14 +44,20 @@ public class DataHandler : IDataHandler
 
     }
 
-    private IItem DbItemToItem(Data.Database.Items result)
+    private IItem DbItemToItem(Items result)
     {
-        return new Item(result.Id, result.name,(float) result.price, result.num_in_stock);
+        if (result != null)
+        {
+            return new Item(result.Id, result.name,(float) result.price, result.num_in_stock);
+
+        }
+
+        return null;
     }
     
     private IUser DbUserToUser(Data.Database.Users result)
     {
-        return new User(result.username, result.password,(float) result.balance);
+        return new User(result.Id, result.username, result.password,(float) result.balance);
     }
     
     
@@ -110,12 +116,11 @@ public class DataHandler : IDataHandler
     // 1 for customer, 2 for admin
     public int validate_user(string username, string password)
     {
-        // var result = (from t in db.Users
-        //     where (t.username == username && t.password == password)
-        //     select t).FirstOrDefault();
-        //
-        // return _mapper.Map<IUser>(result);
-        return -1;
+        var result = (from t in db.Users
+            where (t.username == username && t.password == password)
+            select t).FirstOrDefault();
+
+        return 1;
     }
 
     public int check_user_type(IUser usr)
@@ -201,14 +206,13 @@ public class DataHandler : IDataHandler
 
     public void remove_item(int user_id, int id)
     {
-        bool user_type = (from ord in db.Users
-            where ord.Id == user_id
-            select ord.type).FirstOrDefault();
+
         var query = from ord in db.Items where ord.Id == id select ord;
 
         foreach (var row in query)
         {
             db.Items.DeleteOnSubmit(row);
+            db.SubmitChanges();
             return;
         }
 

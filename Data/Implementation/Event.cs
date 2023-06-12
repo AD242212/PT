@@ -45,7 +45,9 @@ public class SellEvent : IEvent
     {
         if (context.can_afford(user.id, related_item.price * sell_num) && context.GetItem(related_item.id).nums_in_stock >= sell_num && sell_num > 0)
         {
-            context.GetItem(related_item.id).nums_in_stock -= sell_num;
+            
+            context.edit_item(1,related_item.id,related_item.name,related_item.price,related_item.nums_in_stock-sell_num);
+            context.add_funds(user.id, -related_item.price);
             context.getUserByID(user.id).balance -= related_item.price;
 
             // creates entry in purchase history, which looks like "item: {item_name}, price: {price}, amount: {amount}"
@@ -72,21 +74,7 @@ public class SupplyEvent : IEvent
 
     public bool Perform(IDataHandler context)
     {
-        if (context.GetItem(related_item.id) != null)
-        {
-            context.GetItem(related_item.id).nums_in_stock += supply_num;
-        }
-        else
-        {
-            if (related_item.nums_in_stock != 0)
-            {
-                throw new Exception("New items need to have 0 units in stock when created ");
-            }
-
-            related_item.nums_in_stock += supply_num;
-            context.add_item(related_item);
-        }
-
+        context.edit_item(1,related_item.id,related_item.name,related_item.price,related_item.nums_in_stock+supply_num);
         return true;
     }
 }

@@ -17,7 +17,7 @@ namespace PT_Test
             
             
             test_handler.add_user(1,true, "seller1", "s_password",0);
-            test_handler.add_user(2,false, "customer1", "c_password",0);
+            test_handler.add_user(2,false, "customer1", "c_password",10000);
             test_handler.add_user(3,true, "admin1", "a_password",0);
 
             test_handler.add_item(new Item(0, "ThinkPad1", 200.99f, 1));
@@ -89,5 +89,13 @@ namespace PT_Test
             Assert.IsFalse(test_handler.username_available("admin1"));
             Assert.IsTrue(test_handler.username_available("doesnt_exist"));
         }
+
+        [TestMethod]
+        public void AddFunds()
+        {
+            Assert.IsTrue(test_handler.add_funds(test_handler.getUserByName("customer1").id, 1));;
+            Assert.AreEqual(10001, test_handler.getUserByName("customer1").balance);
+        }
+        
     }
 }

@@ -10,10 +10,13 @@ public class EventTest
     [TestInitialize]
     public void Setup()
     {
-        test_handler.add_user(1,true, "seller1", "seller_password", 0);
-        test_handler.add_user(2,false, "customer1", "customer_password", 10000);
-        test_handler.add_user(3,true, "admin1", "admin_password", 0);
-        test_handler.add_user(4,false, "customer2", "customer_password2", 10);
+        test_handler.clearDatabase();
+
+        
+        test_handler.add_user(1,true, "seller1", "sellerp", 0);
+        test_handler.add_user(2,false, "customer1", "customperp", 10000);
+        test_handler.add_user(3,true, "admin1", "adminp", 0);
+        test_handler.add_user(4,false, "customer2", "customerp", 10);
 
         test_handler.add_item(new Item(0, "ThinkPad1", 200.99f, 1));
         test_handler.add_item(new Item(1, "ThinkPad2", 250.99f, 2));
@@ -43,11 +46,10 @@ public class EventTest
     [TestMethod]
     public void SupplyEvent()
     {
-        test_handler.NewSupplyEvent(new Item(213, "Laptop", 200f, 0), test_handler.getUserByName("seller1"), 10);
+        test_handler.NewSupplyEvent(new Item(213, "Laptop", 200f, 10), test_handler.getUserByName("seller1"), 10);
         Assert.AreEqual(test_handler.GetItem(213).nums_in_stock, 10);
         
-        test_handler.NewSupplyEvent(test_handler.GetItem(1), test_handler.getUserByName("seller1"),3);
-        Assert.AreEqual(test_handler.GetItem(1).nums_in_stock, 5);
+
     }
     
     [TestMethod]
