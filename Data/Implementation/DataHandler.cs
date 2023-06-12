@@ -180,6 +180,17 @@ public class DataHandler : IDataHandler
 
         throw new Exception();
     }
+    
+    
+    public int get_next_usr_id()
+    {
+        var query = from ord in db.Users
+            orderby ord.Id descending 
+            select ord;
+
+
+        return query.First().Id+1;
+    }
 
     //ITEM METHODS
 

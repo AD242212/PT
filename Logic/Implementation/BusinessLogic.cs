@@ -1,5 +1,6 @@
 ﻿using Logic.API;
 using Data.API;
+using Data.Implementation;
 
 namespace Logic.Implementation;
 
@@ -79,6 +80,15 @@ public class BusinessLogic : IBusinessLogic
         
         return true;
     }
+    
+    public bool AddProduct(string name, float price, int num)
+    {
+        
+        dataHandler.add_item(new Item(dataHandler.get_next_usr_id(), name, price, num));
+        
+        return true;
+    }
+    
 
     //returns true if successful
     public bool Login(string username, string password)

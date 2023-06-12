@@ -1,13 +1,19 @@
-namespace Presentation;
-using Data.API;
+using Data.Implementation;
+using Logic.API;
+using Logic.Implementation;
 
-public class ItemModel: IItem
+namespace Presentation;
+
+public class ItemModel: IItemModel
 {
     public int id { get; set; }
     public string name { get; set; }
     public float price { get; set; }
     public int nums_in_stock { get; set; }
-    
-    void add_item(){}
-    
+
+    private IBusinessLogic logic = new BusinessLogic(new DataHandler());
+    public void add_item()
+    {
+        logic.AddProduct("Mouse", 10f, 1);
+    }
 }

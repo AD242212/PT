@@ -25,4 +25,7 @@ public interface IBusinessLogic
     bool Register(string username, string password, int type);
 
     bool LogOut();
+
+    public bool AddProduct(string name, float price, int num);
+
 }
