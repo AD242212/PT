@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="Presentation.View.CustomerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Presentation.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Background="LightGray">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock  Grid.Row="0" Text="Products" HorizontalAlignment="Center" FontSize="24"></TextBlock>
+
+        <ListView Grid.Row="1">
+            <ListViewItem/>
+            <ListViewItem/>
+            <ListViewItem/>
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="20 0 20 0" Text="Samsung"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="Price">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="20 0 20 0" Text="20.99"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="In Stock">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="20 0 20 0" Text="12"></TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                                    <TextBox Text="" Width="20"></TextBox>
+                                    <Button Content="Buy"  HorizontalAlignment="Center"></Button>
+                                </StackPanel>
+                                
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <TextBox Text="" Width="20"></TextBox>
+            <Button Content="Add"  HorizontalAlignment="Center"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <Button Content="Exit" HorizontalAlignment="Center" Margin="10 0"/>
+            <Button Content="Back" Margin="10 0"></Button>
+        </StackPanel>
+    </Grid>
+
+</UserControl>
