@@ -14,6 +14,6 @@ public class ItemModel: IItemModel
     private IBusinessLogic logic = new BusinessLogic(new DataHandler());
     public void add_item()
     {
-        logic.AddProduct("Mouse", 10f, 1);
+        logic.AddProduct(name, price, nums_in_stock);
     }
 }

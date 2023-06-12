@@ -128,6 +128,12 @@ public class BusinessLogic : IBusinessLogic
         return false;
     }
 
+    public bool AddUser(string username, string password, int funds)
+    {
+        dataHandler.add_user(dataHandler.get_next_usr_id(), true, username, password, funds);
+        return true;
+    }
+
     public bool LogOut()
     {
         loggedIn = false;
