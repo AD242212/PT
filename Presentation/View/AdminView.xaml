@@ -7,7 +7,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="DarkGray">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+            <ColumnDefinition Width="400"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -15,9 +22,10 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Add Item" FontSize="24" Grid.Row="0" TextAlignment="Center"></TextBlock>
+        <TextBlock Grid.Column="0" Text="Add Item" FontSize="24" Grid.Row="0" TextAlignment="Center"></TextBlock>
 
-        <Grid Grid.Row="1" Margin="0 10 0 0" Width="300">
+
+        <Grid Grid.Column="0" Grid.Row="1" Margin="0 10 0 0" Width="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -27,7 +35,7 @@
             <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
         </Grid>
 
-        <Grid Grid.Row="2" Margin="0 10 0 0" Width="300">
+        <Grid Grid.Column="0"  Grid.Row="2" Margin="0 10 0 0" Width="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
@@ -37,19 +45,166 @@
             <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
         </Grid>
 
-        <Grid Grid.Row="3" Margin="0 10 0 0" Width="300">
+        <Grid Grid.Column="0"  Grid.Row="3" Margin="0 10 0 0" Width="300">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Text="In Stock"></TextBlock>
+            <TextBlock Grid.Column="0"  Grid.Row="0" Text="In Stock"></TextBlock>
             <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
         </Grid>
 
-        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+        <StackPanel Grid.Column="0"  Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
             <Button Content="Add" Margin="10 0 10 0"></Button>
-            <Button Content="Back" Margin="10 0 10 0"></Button>
         </StackPanel>
+
+
+
+
+
+        <TextBlock Grid.Column="1" FontSize="24" Grid.Row="0" TextAlignment="Center"><Run Language="pl-pl" Text="Add User"/></TextBlock>
+
+        <Grid Grid.Column="1" Grid.Row="1" Margin="0 10 0 0" Width="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"><Run Language="pl-pl" Text="Login"/></TextBlock>
+            
+            <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
+
+        </Grid>
+
+        <Grid Grid.Column="1"  Grid.Row="2" Margin="0 10 0 0" Width="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0"><Run Language="pl-pl" Text="Password"/></TextBlock>
+            <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
+        </Grid>
+
+        <Grid Grid.Column="1"  Grid.Row="3" Margin="0 10 0 0" Width="300">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Column="0"  Grid.Row="0" Text="Type"/>
+            <TextBlock Grid.Row="0"><Run Language="pl-pl" Text="Type (0 or 1)"/></TextBlock>
+            <TextBox Grid.Row="1" Text="" Margin="0 5 0 0"/>
+        </Grid>
+
+        <StackPanel Grid.Column="1"  Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+            <Button Content="Add" Margin="10 0 10 0"></Button>
+        </StackPanel>
+
+
+
+        <Grid Grid.Column="0" Grid.Row="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock  Grid.Row="0" Text="Products" HorizontalAlignment="Center" FontSize="24"></TextBlock>
+
+            <ListView Grid.Row="1">
+                <ListViewItem/>
+                <ListViewItem/>
+                <ListViewItem/>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="20 0 20 0" Text="Samsung"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Price">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="20 0 20 0" Text="20.99"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="In Stock">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="20 0 20 0" Text="12"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                <Button Content="Exit" HorizontalAlignment="Center" Margin="10 0"/>
+                <Button Content="Back" Margin="10 0"></Button>
+            </StackPanel>
+        </Grid>
+
+
+
+
+
+        <Grid Grid.Column="1" Grid.Row="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <TextBlock  Grid.Row="0" Text="Users" HorizontalAlignment="Center" FontSize="24"></TextBlock>
+
+            <ListView Grid.Row="1">
+                <ListViewItem/>
+                <ListViewItem/>
+                <ListViewItem/>
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="20 0 20 0" Text="User1"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+        </Grid>
     </Grid>
 </UserControl>
