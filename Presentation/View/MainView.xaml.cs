@@ -18,9 +18,9 @@ namespace Presentation.View
     /// <summary>
     /// Interaction logic for AdminView.xaml
     /// </summary>
-    public partial class AdminView : UserControl
+    public partial class MainView : UserControl
     {
-        public AdminView()
+        public MainView()
         {
             InitializeComponent();
         }
