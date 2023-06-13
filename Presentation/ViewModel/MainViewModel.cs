@@ -96,8 +96,8 @@ namespace Presentation.ViewModel
 
         public MainViewModel()
         {
-            SubmitNewUser = new NewUserCommand();
-            SubmitNewItem = new NewItemCommand();
+            // SubmitNewUser = new NewUserCommand();
+            // SubmitNewItem = new NewItemCommand();
         }
         
     }
