@@ -9,8 +9,6 @@ public class DataHandler : IDataHandler
     private DataClasses1DataContext db;
 
 
-
-
     private Data.Database.Items convertToDbItem(IItem s)
     {
         Data.Database.Items itm = new Items();
@@ -28,12 +26,11 @@ public class DataHandler : IDataHandler
         usr.username = s.username;
         usr.balance = s.balance;
         usr.password = s.password;
-        
+
         //todo change this
         usr.type = true;
 
         return usr;
-
     }
 
     private Data.Database.Events convertToDbEvent(IEvent s)
@@ -41,44 +38,37 @@ public class DataHandler : IDataHandler
         Data.Database.Events e = new Events();
 
         return e;
-
     }
 
     private IItem DbItemToItem(Items result)
     {
         if (result != null)
         {
-            return new Item(result.Id, result.name,(float) result.price, result.num_in_stock);
-
+            return new Item(result.Id, result.name, (float)result.price, result.num_in_stock);
         }
 
         return null;
     }
-    
+
     private IUser DbUserToUser(Data.Database.Users result)
     {
-        return new User(result.Id, result.username, result.password,(float) result.balance);
+        return new User(result.Id, result.username, result.password, (float)result.balance);
     }
-    
-    
 
-    public DataHandler()
+
+    public DataHandler(string? dbstring = null)
     {
         db = new DataClasses1DataContext(
-            "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Lucas\\source\\repos\\PT\\Data\\Database\\Shop.mdf;Integrated Security=True");
+            dbstring);
     }
 
     public void clearDatabase()
     {
-        using (DataClasses1DataContext db = new DataClasses1DataContext(
-                   "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Lucas\\source\\repos\\PT\\Data\\Database\\Shop.mdf;Integrated Security=True"))
-        {
-            db.ExecuteCommand("DELETE FROM Users");
-            db.ExecuteCommand("DELETE FROM Items");
-            db.ExecuteCommand("DELETE FROM Events");
+        db.ExecuteCommand("DELETE FROM Users");
+        db.ExecuteCommand("DELETE FROM Items");
+        db.ExecuteCommand("DELETE FROM Events");
 
-            db.SubmitChanges();
-        }
+        db.SubmitChanges();
     }
 
 
@@ -127,7 +117,6 @@ public class DataHandler : IDataHandler
     {
         //todo
         return 1;
-
     }
 
     public bool username_available(string username)
@@ -181,16 +170,27 @@ public class DataHandler : IDataHandler
         throw new Exception();
     }
 
+
+    public int get_next_usr_id()
+    {
+        var query = from ord in db.Users
+            orderby ord.Id descending
+            select ord;
+
+
+        return query.First().Id + 1;
+    }
+
     //ITEM METHODS
 
     public int get_next_item_id()
     {
         var query = from ord in db.Items
-            orderby ord.Id descending 
+            orderby ord.Id descending
             select ord;
 
 
-        return query.First().Id+1;
+        return query.First().Id + 1;
     }
 
     public void add_item(IItem item)
@@ -206,7 +206,6 @@ public class DataHandler : IDataHandler
 
     public void remove_item(int user_id, int id)
     {
-
         var query = from ord in db.Items where ord.Id == id select ord;
 
         foreach (var row in query)
@@ -261,8 +260,7 @@ public class DataHandler : IDataHandler
             select t).FirstOrDefault();
 
 
-        return new Item(result.Id, result.name,(float) result.price, result.num_in_stock);
-
+        return new Item(result.Id, result.name, (float)result.price, result.num_in_stock);
     }
 
     public IItem GetMostExpensiveItem()
@@ -291,6 +289,13 @@ public class DataHandler : IDataHandler
 
         return DbItemToItem(result);
     }
+
+    public IItem GetItemByName(string name)
+    {
+        var result = (from t in db.Items
+            where t.name == name
+            select t).FirstOrDefault();
+        return DbItemToItem(result);    }
 
     public string GetSoldString(IItem item, int ammount)
     {

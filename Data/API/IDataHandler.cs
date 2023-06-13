@@ -20,6 +20,8 @@ public interface IDataHandler
     public bool add_funds(int id, float funds);
     public bool can_afford(int id, float price);
 
+    public int get_next_usr_id();
+
 
 // // // // // // // ITEM METHODS // // // //// // // //
 
@@ -32,6 +34,8 @@ public interface IDataHandler
     IItem GetMostExpensiveItem();
     IItem GetLeastAvailableItem();
     IItem GetMostAvailableItem();
+
+    IItem GetItemByName(string name);
 
     String GetSoldString(IItem item, int ammount);
     

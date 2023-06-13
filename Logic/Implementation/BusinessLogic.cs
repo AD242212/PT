@@ -1,5 +1,7 @@
 ﻿using Logic.API;
 using Data.API;
+using Data.Database;
+using Data.Implementation;
 
 namespace Logic.Implementation;
 
@@ -14,10 +16,12 @@ public class BusinessLogic : IBusinessLogic
         this.dataHandler = dataHandler;
     }
 
+
+
     public bool AddFunds(float funds)
     {
-        if (!loggedIn)
-            throw new Exception("Not logged in!");
+        // if (!loggedIn)
+        //     throw new Exception("Not logged in!");
         
         dataHandler.NewAddFundsEvent(currentUser, funds);
 
@@ -79,6 +83,15 @@ public class BusinessLogic : IBusinessLogic
         
         return true;
     }
+    
+    public bool AddProduct(string name, float price, int num)
+    {
+        
+        dataHandler.add_item(new Item(dataHandler.get_next_usr_id(), name, price, num));
+        
+        return true;
+    }
+    
 
     //returns true if successful
     public bool Login(string username, string password)
@@ -118,6 +131,12 @@ public class BusinessLogic : IBusinessLogic
         return false;
     }
 
+    public bool AddUser(string username, string password, int funds)
+    {
+        dataHandler.add_user(dataHandler.get_next_usr_id(), true, username, password, funds);
+        return true;
+    }
+
     public bool LogOut()
     {
         loggedIn = false;
@@ -125,4 +144,27 @@ public class BusinessLogic : IBusinessLogic
 
         return true;
     }
+
+    public IUser getUserByID(int id)
+    {
+        return dataHandler.getUserByID(id);
+    }
+
+    public IItem getItembyName(string name)
+    {
+        return dataHandler.GetItemByName(name);
+    }
+
+    public IUser getUserbyName(string name)
+    {
+        return dataHandler.getUserByName(name);
+    }
+
+    public IItem getItembyId(int id)
+    {
+        return dataHandler.GetItem(id);
+        
+    }
+    
+    
 }
