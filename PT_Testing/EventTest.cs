@@ -5,7 +5,7 @@ namespace PT_Test;
 [TestClass]
 public class EventTest
 {
-    private DataHandler test_handler = new DataHandler();
+    private DataHandler test_handler = new DataHandler(dbstring.getCtString());
 
     [TestInitialize]
     public void Setup()

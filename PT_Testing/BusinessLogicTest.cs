@@ -8,7 +8,7 @@ namespace PT_Test;
 [TestClass]
 public class BusinessLogicTest
 {
-    private DataHandler test_handler = new DataHandler();
+    private DataHandler test_handler = new DataHandler(dbstring.getCtString());
     private BusinessLogic logic;
 
     [TestInitialize]

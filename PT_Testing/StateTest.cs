@@ -3,10 +3,16 @@ using Data.Implementation;
 
 namespace PT_Test
 {
+    
+    
+    
     [TestClass]
     public class ItemTest
     {
-        DataHandler test_handler = new DataHandler();
+        
+
+        
+        DataHandler test_handler = new DataHandler(dbstring.getCtString());
 
         [TestInitialize]
         public void Setup()
