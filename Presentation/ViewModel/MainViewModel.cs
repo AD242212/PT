@@ -124,7 +124,7 @@ namespace Presentation.ViewModel
         public void addItem()
         {
             ItemModel model = new ItemModel(logic,NewName,(float) Int32.Parse(NewPrice),Int32.Parse(NewInStock));
-            
+            model.add_item();
         }
         
     }

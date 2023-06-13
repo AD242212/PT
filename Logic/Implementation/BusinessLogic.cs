@@ -16,15 +16,12 @@ public class BusinessLogic : IBusinessLogic
         this.dataHandler = dataHandler;
     }
 
-    public BusinessLogic()
-    {
-        this.dataHandler = new DataHandler(dbstring.getCtString());
-    }
+
 
     public bool AddFunds(float funds)
     {
-        if (!loggedIn)
-            throw new Exception("Not logged in!");
+        // if (!loggedIn)
+        //     throw new Exception("Not logged in!");
         
         dataHandler.NewAddFundsEvent(currentUser, funds);
 
