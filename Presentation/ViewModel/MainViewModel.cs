@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Data.API;
 using Logic.API;
 using Presentation.Commands;
 using Presentation.Model;
@@ -13,12 +14,6 @@ namespace Presentation.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        
-        public List<String> Items
-        {
-            get { return new List<String> { "One", "Two", "Three" }; }
-        }
-        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public IBusinessLogic logic;
@@ -28,15 +23,37 @@ namespace Presentation.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private List<IUser> _users;
+
+        public List<IUser> users
+        {
+            get => _users;
+            set
+            {
+                _users = value;
+                OnPropertyChanged(nameof(_users));
+            }
+        }
+
+        private List<IItem> _items;
+
+        public List<IItem> items
+        {
+            get => _items;
+            set
+            {
+                _items = value;
+                OnPropertyChanged(nameof(_users));
+            }
+        }
+
+
         private string _newusername;
         private string _newpassword;
 
         public string NewUsername
         {
-            get
-            {
-                return _newusername;
-            }
+            get { return _newusername; }
             set
             {
                 _newusername = value;
@@ -46,10 +63,7 @@ namespace Presentation.ViewModel
 
         public string NewPassword
         {
-            get
-            {
-                return _newpassword;
-            }
+            get { return _newpassword; }
             set
             {
                 _newpassword = value;
@@ -60,12 +74,10 @@ namespace Presentation.ViewModel
         private string _newname;
         private string _newprice;
         private string _newinstock;
+
         public string NewName
         {
-            get
-            {
-                return _newname;
-            }
+            get { return _newname; }
             set
             {
                 _newname = value;
@@ -75,10 +87,7 @@ namespace Presentation.ViewModel
 
         public string NewPrice
         {
-            get
-            {
-                return _newprice;
-            }
+            get { return _newprice; }
             set
             {
                 _newprice = value;
@@ -88,10 +97,7 @@ namespace Presentation.ViewModel
 
         public string NewInStock
         {
-            get
-            {
-                return _newinstock;
-            }
+            get { return _newinstock; }
             set
             {
                 _newinstock = value;
@@ -100,32 +106,32 @@ namespace Presentation.ViewModel
         }
 
 
-        public ICommand SubmitNewUser
-        {
-            get;
-        }
+        public ICommand SubmitNewUser { get; }
 
-        public ICommand SubmitNewItem{ get; }
+        public ICommand SubmitNewItem { get; }
 
         public MainViewModel(IBusinessLogic logic)
         {
             this.logic = logic;
-            // SubmitNewUser = new NewUserCommand(this);
-            // SubmitNewItem = new NewItemCommand(this);
+
         }
 
         public void addUser()
         {
-            UserModel usr = new UserModel(logic, NewUsername, NewPassword,1);
+            UserModel usr = new UserModel(logic, NewUsername, NewPassword, 1);
             usr.add_user();
-
         }
 
         public void addItem()
         {
-            ItemModel model = new ItemModel(logic,NewName,(float) Int32.Parse(NewPrice),Int32.Parse(NewInStock));
+            ItemModel model = new ItemModel(logic, NewName, (float)Int32.Parse(NewPrice), Int32.Parse(NewInStock));
             model.add_item();
         }
-        
+
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
