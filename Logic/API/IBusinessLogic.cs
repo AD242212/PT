@@ -30,4 +30,11 @@ public interface IBusinessLogic
 
     public bool AddProduct(string name, float price, int num);
 
+    public IItem getItembyId(int id);
+    public IUser getUserByID(int id);
+
+    public IItem getItembyName(string name);
+
+    public IUser getUserbyName(string name);
+
 }

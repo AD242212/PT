@@ -1,5 +1,6 @@
 ﻿using Logic.API;
 using Data.API;
+using Data.Database;
 using Data.Implementation;
 
 namespace Logic.Implementation;
@@ -13,6 +14,11 @@ public class BusinessLogic : IBusinessLogic
     public BusinessLogic(IDataHandler dataHandler)
     {
         this.dataHandler = dataHandler;
+    }
+
+    public BusinessLogic()
+    {
+        this.dataHandler = new DataHandler(dbstring.getCtString());
     }
 
     public bool AddFunds(float funds)
@@ -141,4 +147,27 @@ public class BusinessLogic : IBusinessLogic
 
         return true;
     }
+
+    public IUser getUserByID(int id)
+    {
+        return dataHandler.getUserByID(id);
+    }
+
+    public IItem getItembyName(string name)
+    {
+        return dataHandler.GetItemByName(name);
+    }
+
+    public IUser getUserbyName(string name)
+    {
+        return dataHandler.getUserByName(name);
+    }
+
+    public IItem getItembyId(int id)
+    {
+        return dataHandler.GetItem(id);
+        
+    }
+    
+    
 }

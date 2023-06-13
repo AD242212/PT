@@ -10,13 +10,14 @@ public class ItemModel : IItemModel
     public float price { get; set; }
     public int nums_in_stock { get; set; }
 
-    private IBusinessLogic logic = new BusinessLogic(new DataHandler());
+    private IBusinessLogic logic;
 
-    public ItemModel(string name, float price, int nums_in_stock)
+    public ItemModel(IBusinessLogic logic, string name, float price, int nums_in_stock)
     {
         this.name = name;
         this.price = price;
         this.nums_in_stock = nums_in_stock;
+        this.logic = logic;
     }
     public void add_item()
     {

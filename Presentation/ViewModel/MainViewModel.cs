@@ -5,13 +5,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Logic.API;
 using Presentation.Commands;
+using Presentation.Model;
 
 namespace Presentation.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        
+        public List<String> Items
+        {
+            get { return new List<String> { "One", "Two", "Three" }; }
+        }
+        
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        public IBusinessLogic logic;
 
         protected void OnPropertyChange(string propertyName)
         {
@@ -90,14 +100,31 @@ namespace Presentation.ViewModel
         }
 
 
-        public ICommand SubmitNewUser { get; }
+        public ICommand SubmitNewUser
+        {
+            get;
+        }
 
         public ICommand SubmitNewItem{ get; }
 
-        public MainViewModel()
+        public MainViewModel(IBusinessLogic logic)
         {
-            // SubmitNewUser = new NewUserCommand();
-            // SubmitNewItem = new NewItemCommand();
+            this.logic = logic;
+            // SubmitNewUser = new NewUserCommand(this);
+            // SubmitNewItem = new NewItemCommand(this);
+        }
+
+        public void addUser()
+        {
+            UserModel usr = new UserModel(logic, NewUsername, NewPassword,1);
+            usr.add_user();
+
+        }
+
+        public void addItem()
+        {
+            ItemModel model = new ItemModel(logic,NewName,(float) Int32.Parse(NewPrice),Int32.Parse(NewInStock));
+            
         }
         
     }

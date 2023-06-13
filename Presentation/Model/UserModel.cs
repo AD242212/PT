@@ -11,10 +11,11 @@ namespace Presentation.Model
         
         public float balance { get; set; }
 
-        private IBusinessLogic logic = new BusinessLogic(new DataHandler());
+        private IBusinessLogic logic;
 
-        public UserModel(string username, string password, float balance)
+        public UserModel(IBusinessLogic logic, string username, string password, float balance)
         {
+            this.logic = logic;
             this.username = username;
             this.password = password;
             this.balance = balance;
@@ -22,7 +23,7 @@ namespace Presentation.Model
 
         public void add_user()
         {
-            logic.AddUser(username, password, 0);
+            logic.AddUser(username, password, (int) balance);
         }
     }
 }

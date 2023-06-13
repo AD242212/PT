@@ -18,7 +18,7 @@ namespace Presentation.Commands
         }
         public override void Execute(object? parameter)
         {
-            ItemModel user = new ItemModel(_mainViewModel.NewName, float.Parse(_mainViewModel.NewPrice), Int32.Parse(_mainViewModel.NewInStock));
+            ItemModel user = new ItemModel(_mainViewModel.logic,_mainViewModel.NewName, float.Parse(_mainViewModel.NewPrice), Int32.Parse(_mainViewModel.NewInStock));
         }
     }
 }

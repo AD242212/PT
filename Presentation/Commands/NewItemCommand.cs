@@ -17,7 +17,7 @@ namespace Presentation.Commands
         }
         public override void Execute(object? parameter)
         {
-            UserModel user = new UserModel(_mainViewModel.NewUsername, _mainViewModel.NewPassword, 0);
+            UserModel user = new UserModel(_mainViewModel.logic,_mainViewModel.NewUsername, _mainViewModel.NewPassword, 0);
         }
     }
 }

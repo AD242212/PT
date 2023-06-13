@@ -290,6 +290,13 @@ public class DataHandler : IDataHandler
         return DbItemToItem(result);
     }
 
+    public IItem GetItemByName(string name)
+    {
+        var result = (from t in db.Items
+            where t.name == name
+            select t).FirstOrDefault();
+        return DbItemToItem(result);    }
+
     public string GetSoldString(IItem item, int ammount)
     {
         return string.Format("item: {0}, price: {1}, amount: {2}", item.name, item.price, ammount);

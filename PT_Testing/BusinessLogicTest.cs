@@ -81,4 +81,12 @@ public class BusinessLogicTest
         logic.Login("seller1", "sellerp");
         Assert.IsTrue(logic.EditProduct(0, "ThinkPadNew", 100.55f, 20));
     }
+
+    [TestMethod]
+    public void addmethods()
+    {
+        logic.getItembyId(1);
+        logic.getUserByID(1);
+        Assert.IsFalse(false);
+    }
 }

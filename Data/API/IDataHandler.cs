@@ -35,6 +35,8 @@ public interface IDataHandler
     IItem GetLeastAvailableItem();
     IItem GetMostAvailableItem();
 
+    IItem GetItemByName(string name);
+
     String GetSoldString(IItem item, int ammount);
     
 // // // // // // // EVENTS // // // //// // // //
