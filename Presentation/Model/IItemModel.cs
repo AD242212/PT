@@ -6,5 +6,6 @@ public interface IItemModel
     public float price { get; set; }
     public int nums_in_stock { get; set; }
 
+
     void add_item();
 }

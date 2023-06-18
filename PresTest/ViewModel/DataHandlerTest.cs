@@ -139,4 +139,14 @@ internal class DataHandlerTest : IBusinessLogic
         }
 
         throw new Exception();    }
+
+    public List<IItem> get_items()
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<IUser> get_users()
+    {
+        throw new NotImplementedException();
+    }
 }

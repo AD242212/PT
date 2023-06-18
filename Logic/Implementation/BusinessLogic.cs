@@ -160,6 +160,16 @@ public class BusinessLogic : IBusinessLogic
         return dataHandler.getUserByName(name);
     }
 
+    public List<IItem> get_items()
+    {
+        return dataHandler.get_items();
+    }
+
+    public List<IUser> get_users()
+    {
+        return dataHandler.get_users();
+    }
+
     public IItem getItembyId(int id)
     {
         return dataHandler.GetItem(id);

@@ -36,5 +36,10 @@ public interface IBusinessLogic
     public IItem getItembyName(string name);
 
     public IUser getUserbyName(string name);
+    
+    List<IItem> get_items();
+
+    List<IUser> get_users();
+
 
 }

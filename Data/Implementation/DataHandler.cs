@@ -181,6 +181,14 @@ public class DataHandler : IDataHandler
         return query.First().Id + 1;
     }
 
+    public List<IUser> get_users()
+    {
+        var query = from ord in db.Users
+            select ord;
+
+        return query.ToList().ConvertAll(x=>DbUserToUser(x));
+    }
+
     //ITEM METHODS
 
     public int get_next_item_id()
@@ -302,7 +310,14 @@ public class DataHandler : IDataHandler
         return string.Format("item: {0}, price: {1}, amount: {2}", item.name, item.price, ammount);
     }
 
-//EVENT METHODS
+    public List<IItem> get_items()
+    {
+        var query = from ord in db.Items
+            select ord;
+
+        return query.ToList().ConvertAll(x=>DbItemToItem(x));    }
+
+    //EVENT METHODS
 
     public void NewAddFundsEvent(IUser user, float amount)
     {
