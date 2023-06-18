@@ -1,6 +1,4 @@
-using Data.Implementation;
 using Logic.API;
-using Logic.Implementation;
 
 namespace Presentation.Model;
 

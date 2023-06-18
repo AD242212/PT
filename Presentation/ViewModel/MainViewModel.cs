@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Data.API;
-using Logic.API;
+﻿using Logic.API;
 using Presentation.Commands;
-using Presentation.Model;
+using System.ComponentModel;
+using System.Windows.Input;
 
 namespace Presentation.ViewModel
 {
@@ -22,31 +15,6 @@ namespace Presentation.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private List<IUser> _users;
-
-        public List<IUser> users
-        {
-            get => _users;
-            set
-            {
-                _users = value;
-                OnPropertyChanged(nameof(_users));
-            }
-        }
-
-        private List<IItem> _items;
-
-        public List<IItem> items
-        {
-            get => _items;
-            set
-            {
-                _items = value;
-                OnPropertyChanged(nameof(_users));
-            }
-        }
-
 
         private string _newusername;
         private string _newpassword;
@@ -113,25 +81,8 @@ namespace Presentation.ViewModel
         public MainViewModel(IBusinessLogic logic)
         {
             this.logic = logic;
-
-        }
-
-        public void addUser()
-        {
-            UserModel usr = new UserModel(logic, NewUsername, NewPassword, 1);
-            usr.add_user();
-        }
-
-        public void addItem()
-        {
-            ItemModel model = new ItemModel(logic, NewName, (float)Int32.Parse(NewPrice), Int32.Parse(NewInStock));
-            model.add_item();
-        }
-
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            SubmitNewUser = new NewUserCommand(this);
+            SubmitNewItem = new NewItemCommand(this);
         }
     }
 }

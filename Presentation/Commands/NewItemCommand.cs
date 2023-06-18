@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Presentation.Model;
+﻿using Presentation.Model;
 using Presentation.ViewModel;
+using System;
 
 namespace Presentation.Commands
 {
@@ -17,7 +13,8 @@ namespace Presentation.Commands
         }
         public override void Execute(object? parameter)
         {
-            UserModel user = new UserModel(_mainViewModel.logic,_mainViewModel.NewUsername, _mainViewModel.NewPassword, 0);
+            ItemModel item = new ItemModel(_mainViewModel.logic, _mainViewModel.NewName, float.Parse(_mainViewModel.NewPrice), Int32.Parse(_mainViewModel.NewInStock));
+            item.add_item();
         }
     }
 }
