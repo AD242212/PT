@@ -23,6 +23,8 @@ public interface IDataHandler
 
     public int get_next_usr_id();
 
+    public int get_next_item_id();
+
     public List<IUser> get_users();
 
 

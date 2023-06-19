@@ -15,6 +15,7 @@ namespace Presentation.Commands
         {
             UserModel user = new UserModel(_mainViewModel.logic, _mainViewModel.NewUsername, _mainViewModel.NewPassword, 0);
             user.add_user();
+            _mainViewModel.RefreshUsers();
         }
     }
 }

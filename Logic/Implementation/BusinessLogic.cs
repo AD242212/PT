@@ -87,7 +87,7 @@ public class BusinessLogic : IBusinessLogic
     public bool AddProduct(string name, float price, int num)
     {
         
-        dataHandler.add_item(new Item(dataHandler.get_next_usr_id(), name, price, num));
+        dataHandler.add_item(new Item(dataHandler.get_next_item_id(), name, price, num));
         
         return true;
     }

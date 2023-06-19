@@ -15,6 +15,7 @@ namespace Presentation.Commands
         {
             ItemModel item = new ItemModel(_mainViewModel.logic, _mainViewModel.NewName, float.Parse(_mainViewModel.NewPrice), Int32.Parse(_mainViewModel.NewInStock));
             item.add_item();
+            _mainViewModel.RefreshItems();
         }
     }
 }
