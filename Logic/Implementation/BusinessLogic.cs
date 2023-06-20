@@ -87,7 +87,7 @@ public class BusinessLogic : IBusinessLogic
     public bool AddProduct(string name, float price, int num)
     {
         
-        dataHandler.add_item(new Item(dataHandler.get_next_usr_id(), name, price, num));
+        dataHandler.add_item(new Item(dataHandler.get_next_item_id(), name, price, num));
         
         return true;
     }
@@ -160,11 +160,23 @@ public class BusinessLogic : IBusinessLogic
         return dataHandler.getUserByName(name);
     }
 
+    public List<IItem> get_items()
+    {
+        return dataHandler.get_items();
+    }
+
+    public List<IUser> get_users()
+    {
+        return dataHandler.get_users();
+    }
+
     public IItem getItembyId(int id)
     {
         return dataHandler.GetItem(id);
         
     }
+    
+
     
     
 }

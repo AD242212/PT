@@ -1,4 +1,5 @@
 
+using System.Collections;
 using Data.Database;
 using Data.Implementation;
 
@@ -22,6 +23,10 @@ public interface IDataHandler
 
     public int get_next_usr_id();
 
+    public int get_next_item_id();
+
+    public List<IUser> get_users();
+
 
 // // // // // // // ITEM METHODS // // // //// // // //
 
@@ -34,10 +39,15 @@ public interface IDataHandler
     IItem GetMostExpensiveItem();
     IItem GetLeastAvailableItem();
     IItem GetMostAvailableItem();
+    
+    
 
     IItem GetItemByName(string name);
 
     String GetSoldString(IItem item, int ammount);
+    
+    List<IItem> get_items();
+
     
 // // // // // // // EVENTS // // // //// // // //
 

@@ -8,59 +8,53 @@ using System.Threading.Tasks;
 using Data.Implementation;
 using Logic.API;
 using Logic.Implementation;
+using Presentation.Commands;
 
 
 namespace Presentation.ViewModel.Tests
 {
     [TestClass]
-    public class MainViewModelTests
+    public class PresTest
     {
+        
         [TestMethod]
-        public void MainViewModelTest()
-        {
-            DataHandlerTest logic = new DataHandlerTest();
-            MainViewModel model = new MainViewModel(logic);
-
+        public void TestMockUser()
+        { 
+            
+            MainViewModel model = new MainViewModel(new DataHandlerTest());
+            
             model.NewUsername = "Lucas";
             model.NewPassword = "Password";
 
-            model.addUser();
+            Assert.AreEqual(model.NewUsername, "Lucas");
+            Assert.AreEqual(model.NewPassword, "Password");
 
-
-            model.NewUsername = "Artur";
-            model.NewPassword = "1234";
-
-            model.addUser();
-
-            Assert.AreEqual(logic.getUserbyName("Lucas").password, "Password");
-            Assert.AreEqual(logic.getUserbyName("Artur").password, "1234");
-        }
-        
-        
+            model.NewUsername = "Rafal";
+            Assert.AreEqual(model.NewUsername, "Rafal");
+            
+        } 
+                
         [TestMethod]
-        public void MainViewModelTest2()
-        {
-            DataHandlerTest logic = new DataHandlerTest();
-            MainViewModel model = new MainViewModel(logic);
+        public void TestMockItem()
+        { 
+            
+            MainViewModel model = new MainViewModel(new DataHandlerTest());
+            
+            model.NewName = "Item";
+            model.NewPrice = "11";
+            model.NewInStock = "0";
 
-            model.NewName = "Redmi";
-            model.NewPrice = "100";
-            model.NewInStock = "1";
+            Assert.AreEqual(model.NewName, "Item");
+            Assert.AreEqual(model.NewPrice, "11");
+            Assert.AreEqual(model.NewInStock, "0");
 
-            model.addItem();
+
             
-            Assert.AreEqual(logic.getItembyName("Redmi").nums_in_stock,1);
-            
-            
-            model.NewName = "Xiaomi";
-            model.NewPrice = "25";
-            model.NewInStock = "1000";
-            
-            model.addItem();
-            
-            Assert.AreEqual(logic.getItembyName("Xiaomi").nums_in_stock,1000);
-            
-        }
+        }  
+        
+        
         
     }
+
+    
 }

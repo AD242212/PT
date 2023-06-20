@@ -139,4 +139,15 @@ internal class DataHandlerTest : IBusinessLogic
         }
 
         throw new Exception();    }
+
+    public List<IItem> get_items()
+    {
+        return new List<IItem>();
+    }
+
+    public List<IUser> get_users()
+    {
+
+        return new List<IUser>();
+    }
 }

@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Data.API;
-using Logic.API;
+﻿using Logic.API;
 using Presentation.Commands;
 using Presentation.Model;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Input;
+using Data.API;
+using Data.Implementation;
+using Logic.Implementation;
 
 namespace Presentation.ViewModel
 {
+    public partial class PopupWindow : Window
+    {
+       
+    }
+
     public class MainViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -22,31 +26,6 @@ namespace Presentation.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private List<IUser> _users;
-
-        public List<IUser> users
-        {
-            get => _users;
-            set
-            {
-                _users = value;
-                OnPropertyChanged(nameof(_users));
-            }
-        }
-
-        private List<IItem> _items;
-
-        public List<IItem> items
-        {
-            get => _items;
-            set
-            {
-                _items = value;
-                OnPropertyChanged(nameof(_users));
-            }
-        }
-
 
         private string _newusername;
         private string _newpassword;
@@ -110,28 +89,57 @@ namespace Presentation.ViewModel
 
         public ICommand SubmitNewItem { get; }
 
+        public ObservableCollection<IUserModel> _users =  new ObservableCollection<IUserModel>();
+
+        public ObservableCollection<IUserModel> users
+        {
+            get { return _users; }
+        }
+
+        public ObservableCollection<IItemModel> _items = new ObservableCollection<IItemModel>();
+
+        public ObservableCollection<IItemModel> items
+        {
+            get { return _items; }
+        }
+
+        public void RefreshUsers()
+        {
+            _users.Clear();
+
+            foreach (var user in logic.get_users())
+            {
+                _users.Add(new UserModel(this.logic, user.username, user.password, user.balance));
+            }
+        }
+
+        public void RefreshItems()
+        {
+            _items.Clear();
+
+            foreach (var item in logic.get_items())
+            {
+                _items.Add(new ItemModel(this.logic, item.name, item.price, item.nums_in_stock));
+            }
+        }
+
+        public MainViewModel()
+        {
+            logic  = new BusinessLogic(new DataHandler());
+            RefreshItems();
+            RefreshUsers();
+            SubmitNewUser = new NewUserCommand(this);
+            SubmitNewItem = new NewItemCommand(this);
+        }
+        
         public MainViewModel(IBusinessLogic logic)
         {
             this.logic = logic;
 
-        }
-
-        public void addUser()
-        {
-            UserModel usr = new UserModel(logic, NewUsername, NewPassword, 1);
-            usr.add_user();
-        }
-
-        public void addItem()
-        {
-            ItemModel model = new ItemModel(logic, NewName, (float)Int32.Parse(NewPrice), Int32.Parse(NewInStock));
-            model.add_item();
-        }
-
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            RefreshItems();
+            RefreshUsers();
+            SubmitNewUser = new NewUserCommand(this);
+            SubmitNewItem = new NewItemCommand(this);
         }
     }
 }
