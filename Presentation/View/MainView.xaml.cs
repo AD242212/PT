@@ -15,8 +15,7 @@ namespace Presentation.View
         {
             InitializeComponent();
 
-            string DatabasePath = $@"C:\Users\Artur\Source\Repos\PT3.1\PT_Testing\Shop.mdf";
-            BusinessLogic logic = new BusinessLogic(new DataHandler(@$"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={DatabasePath};Integrated Security = True;"));
+            BusinessLogic logic = new BusinessLogic(new DataHandler());
             DataContext = new MainViewModel(logic);
         }
 

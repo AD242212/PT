@@ -1,6 +1,8 @@
+using System.Data.Common;
 using AutoMapper;
 using Data.API;
 using Data.Database;
+using Microsoft.Data.SqlClient;
 
 namespace Data.Implementation;
 
@@ -61,6 +63,13 @@ public class DataHandler : IDataHandler
         db = new DataClasses1DataContext(
             dbstring);
     }
+    public DataHandler()
+    {
+        db = new DataClasses1DataContext(
+            "error");
+    }
+    
+    
 
     public void clearDatabase()
     {
@@ -81,8 +90,18 @@ public class DataHandler : IDataHandler
         usr.type = type;
         usr.password = password;
         usr.balance = balance;
-        db.Users.InsertOnSubmit(usr);
-        db.SubmitChanges();
+
+        try
+        {
+            db.Users.InsertOnSubmit(usr);
+            db.SubmitChanges();
+        }
+        catch (SqlException)
+        {
+            
+        };
+
+
     }
 
 
@@ -173,38 +192,75 @@ public class DataHandler : IDataHandler
 
     public int get_next_usr_id()
     {
-        var query = from ord in db.Users
-            orderby ord.Id descending
-            select ord;
+        try
+        {
+            var query = from ord in db.Users
+                orderby ord.Id descending
+                select ord;
 
 
-        return query.First().Id + 1;
+            return query.First().Id + 1;
+        }
+        catch (SqlException)
+        {
+            
+        }
+
+        return -1;
+
     }
 
     public List<IUser> get_users()
     {
-        var query = from ord in db.Users
-            select ord;
+        try
+        {
+            var query = from ord in db.Users
+                select ord;
 
-        return query.ToList().ConvertAll(x=>DbUserToUser(x));
+            return query.ToList().ConvertAll(x=>DbUserToUser(x));
+        }
+        catch (SqlException)
+        {
+            return new List<IUser>();
+        }
+        
+
     }
 
     //ITEM METHODS
 
     public int get_next_item_id()
     {
-        var query = from ord in db.Items
-            orderby ord.Id descending
-            select ord;
+        try
+        {
+            var query = from ord in db.Items
+                orderby ord.Id descending
+                select ord;
 
 
-        return query.First().Id + 1;
+            return query.First().Id + 1;
+        }
+        catch (SqlException)
+        {
+            
+        }
+
+        return -1;
+
     }
 
     public void add_item(IItem item)
     {
-        db.Items.InsertOnSubmit(convertToDbItem(item));
-        db.SubmitChanges();
+        try
+        {
+            db.Items.InsertOnSubmit(convertToDbItem(item));
+            db.SubmitChanges();
+        }
+        catch (SqlException)
+        {
+            
+        }
+
     }
 
     public void remove_item(string user_id, int id)
@@ -312,10 +368,19 @@ public class DataHandler : IDataHandler
 
     public List<IItem> get_items()
     {
-        var query = from ord in db.Items
-            select ord;
+        try
+        {
+            var query = from ord in db.Items
+                select ord;
 
-        return query.ToList().ConvertAll(x=>DbItemToItem(x));    }
+            return query.ToList().ConvertAll(x => DbItemToItem(x));
+
+        }
+        catch (SqlException)
+        {
+            return new List<IItem>();
+        }
+    }
 
     //EVENT METHODS
 
@@ -348,4 +413,7 @@ public class DataHandler : IDataHandler
         EditProductEvent evt = new EditProductEvent(id, user, name, price, num);
         evt.Perform(this);
     }
+
+
+    
 }
