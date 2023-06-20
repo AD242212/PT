@@ -125,7 +125,17 @@ namespace Presentation.ViewModel
 
         public MainViewModel()
         {
-            this.logic  = new BusinessLogic(new DataHandler());
+            logic  = new BusinessLogic(new DataHandler());
+            RefreshItems();
+            RefreshUsers();
+            SubmitNewUser = new NewUserCommand(this);
+            SubmitNewItem = new NewItemCommand(this);
+        }
+        
+        public MainViewModel(IBusinessLogic logic)
+        {
+            this.logic = logic;
+
             RefreshItems();
             RefreshUsers();
             SubmitNewUser = new NewUserCommand(this);

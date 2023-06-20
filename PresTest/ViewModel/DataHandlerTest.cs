@@ -142,11 +142,12 @@ internal class DataHandlerTest : IBusinessLogic
 
     public List<IItem> get_items()
     {
-        throw new NotImplementedException();
+        return new List<IItem>();
     }
 
     public List<IUser> get_users()
     {
-        throw new NotImplementedException();
+
+        return new List<IUser>();
     }
 }
