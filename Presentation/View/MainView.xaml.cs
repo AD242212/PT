@@ -15,8 +15,7 @@ namespace Presentation.View
         {
             InitializeComponent();
 
-            BusinessLogic logic = new BusinessLogic(new DataHandler());
-            DataContext = new MainViewModel(logic);
+            DataContext = new MainViewModel();
         }
 
         private void ListViewItem_User(object sender, System.Windows.Input.MouseButtonEventArgs e)

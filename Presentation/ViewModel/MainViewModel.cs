@@ -6,6 +6,8 @@ using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using Data.API;
+using Data.Implementation;
+using Logic.Implementation;
 
 namespace Presentation.ViewModel
 {
@@ -121,9 +123,9 @@ namespace Presentation.ViewModel
             }
         }
 
-        public MainViewModel(IBusinessLogic logic)
+        public MainViewModel()
         {
-            this.logic = logic;
+            this.logic  = new BusinessLogic(new DataHandler());
             RefreshItems();
             RefreshUsers();
             SubmitNewUser = new NewUserCommand(this);
